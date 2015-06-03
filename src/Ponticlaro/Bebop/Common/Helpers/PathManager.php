@@ -11,7 +11,7 @@ class PathManager extends \Ponticlaro\Bebop\Common\Patterns\SingletonAbstract {
      * 
      * @var Ponticlaro\Bebop\Common\Collection;
      */
-    private static $__paths;
+    protected $__paths;
 
     /**
      * Instantiates Env Manager object
@@ -23,7 +23,7 @@ class PathManager extends \Ponticlaro\Bebop\Common\Patterns\SingletonAbstract {
         $template_dir = get_template_directory();
 
         // Instantiate paths collection object
-        self::$__paths = new Collection(array(
+        $this->__paths = new Collection(array(
             'root'    => ABSPATH,
             'admin'   => '',
             'plugins' => '',
@@ -40,9 +40,11 @@ class PathManager extends \Ponticlaro\Bebop\Common\Patterns\SingletonAbstract {
      * @param string $key  Key 
      * @param string $path Path
      */
-    public static function set($key, $path)
+    public function set($key, $path)
     {
-        self::$__paths->set($key, rtrim($path, '/'));
+        $this->__paths->set($key, rtrim($path, '/'));
+
+        return $this;
     }
 
     /**
@@ -53,10 +55,10 @@ class PathManager extends \Ponticlaro\Bebop\Common\Patterns\SingletonAbstract {
      * @param  string $relative_path Optional relative path
      * @return string                path
      */
-    public static function get($key, $relative_path = null)
+    public function get($key, $relative_path = null)
     {   
         // Get path without trailing slash
-        $path = self::$__paths->get($key);
+        $path = $this->__paths->get($key);
 
         // Concatenate relative URL
         if ($relative_path) $path .= '/'. ltrim($relative_path, '/');
@@ -69,9 +71,9 @@ class PathManager extends \Ponticlaro\Bebop\Common\Patterns\SingletonAbstract {
      * 
      * @return array
      */
-    public static function getAll()
+    public function getAll()
     {
-        return self::$__paths->getAll();
+        return $this->__paths->getAll();
     } 
 
     /**
@@ -83,9 +85,9 @@ class PathManager extends \Ponticlaro\Bebop\Common\Patterns\SingletonAbstract {
      */
     public function __call($name, $args)
     {
-        if (!method_exists(self::$__paths, $name))
+        if (!method_exists($this->__paths, $name))
             throw new \Exception("UrlManager->$name method do not exist", 1);
 
-        return call_user_func_array(array(self::$__paths, $name), $args);
+        return call_user_func_array(array($this->__paths, $name), $args);
     }
 }

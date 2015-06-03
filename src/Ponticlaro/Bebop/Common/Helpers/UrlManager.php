@@ -11,7 +11,7 @@ class UrlManager extends \Ponticlaro\Bebop\Common\Patterns\SingletonAbstract; {
      * 
      * @var Ponticlaro\Bebop\Common\Collection;
      */
-    private static $__urls;
+    protected $__urls;
 
     /**
      * Instantiates Env Manager object
@@ -23,7 +23,7 @@ class UrlManager extends \Ponticlaro\Bebop\Common\Patterns\SingletonAbstract; {
         $template_url = get_bloginfo('template_url');
 
         // Instantiate paths collection object
-        self::$__urls = new Collection(array(
+        $this->__urls = new Collection(array(
             'home'    => home_url(),
             'admin'   => admin_url(),
             'plugins' => plugins_url(),
@@ -40,9 +40,9 @@ class UrlManager extends \Ponticlaro\Bebop\Common\Patterns\SingletonAbstract; {
      * @param string $key Key 
      * @param string $url URL
      */
-    public static function set($key, $url)
+    public function set($key, $url)
     {
-        self::$__urls->set($key, rtrim($url, '/'));
+        $this->__urls->set($key, rtrim($url, '/'));
     }
 
     /**
@@ -53,10 +53,10 @@ class UrlManager extends \Ponticlaro\Bebop\Common\Patterns\SingletonAbstract; {
      * @param  string $relative_url Optional relative URL
      * @return string               URL
      */
-    public static function get($key, $relative_url = null)
+    public function get($key, $relative_url = null)
     {   
         // Get URL without trailing slash
-        $url = self::$__urls->get($key);
+        $url = $this->__urls->get($key);
 
         // Concatenate relative URL
         if ($relative_url) $url .= '/'. ltrim($relative_url, '/');
@@ -69,9 +69,9 @@ class UrlManager extends \Ponticlaro\Bebop\Common\Patterns\SingletonAbstract; {
      * 
      * @return array
      */
-    public static function getAll()
+    public function getAll()
     {
-        return self::$__urls->getAll();
+        return $this->__urls->getAll();
     } 
 
     /**
@@ -83,9 +83,9 @@ class UrlManager extends \Ponticlaro\Bebop\Common\Patterns\SingletonAbstract; {
      */
     public function __call($name, $args)
     {
-        if (!method_exists(self::$__urls, $name))
+        if (!method_exists($this->__urls, $name))
             throw new \Exception("UrlManager->$name method do not exist", 1);
 
-        return call_user_func_array(array(self::$__urls, $name), $args);
+        return call_user_func_array(array($this->__urls, $name), $args);
     }
 }
