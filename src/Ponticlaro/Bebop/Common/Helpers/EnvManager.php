@@ -11,7 +11,7 @@ class EnvManager extends \Ponticlaro\Bebop\Common\Patterns\SingletonAbstract {
 	 * 
 	 * @var Ponticlaro\Bebop\Common\Collection;
 	 */
-	private static $__environments;
+	protected $__environments;
 
 	/**
 	 * Instantiates Env Manager object
@@ -20,7 +20,7 @@ class EnvManager extends \Ponticlaro\Bebop\Common\Patterns\SingletonAbstract {
 	protected function __construct()
 	{
 		// Instantiate environments collection object
-		self::$__environments = new Collection(array(
+		$this->__environments = new Collection(array(
 			'development' => new Env('development'),
 			'staging'     => new Env('staging'),
 			'production'  => new Env('production')
@@ -35,9 +35,9 @@ class EnvManager extends \Ponticlaro\Bebop\Common\Patterns\SingletonAbstract {
 	 */
 	public function add($key)
 	{
-		if (!is_string($key) || self::$__environments->hasKey($key)) return $this;
+		if (!is_string($key) || $this->__environments->hasKey($key)) return $this;
 
-		self::$__environments->set($key, new Env($key));
+		$this->__environments->set($key, new Env($key));
 
 		return $this;
 	}
@@ -51,7 +51,7 @@ class EnvManager extends \Ponticlaro\Bebop\Common\Patterns\SingletonAbstract {
 	{
 		if (!is_string($key)) return $this;
 
-		self::$__environments->set($key, new Env($key));
+		$this->__environments->set($key, new Env($key));
 
 		return $this;
 	}
@@ -65,7 +65,7 @@ class EnvManager extends \Ponticlaro\Bebop\Common\Patterns\SingletonAbstract {
 	{
 		if (!is_string($key)) return false;
 
-		return self::$__environments->hasKey($key);
+		return $this->__environments->hasKey($key);
 	}
 
 	/**
@@ -77,7 +77,7 @@ class EnvManager extends \Ponticlaro\Bebop\Common\Patterns\SingletonAbstract {
 	{
 		if (!is_string($key)) return $this;
 
-		return self::$__environments->get($key);
+		return $this->__environments->get($key);
 	}
 
 	/**
@@ -89,7 +89,7 @@ class EnvManager extends \Ponticlaro\Bebop\Common\Patterns\SingletonAbstract {
 	{
 		if (!is_string($key)) return $this;
 
-		self::$__environments->remove($key);
+		$this->__environments->remove($key);
 
 		return $this;
 	}
@@ -102,9 +102,9 @@ class EnvManager extends \Ponticlaro\Bebop\Common\Patterns\SingletonAbstract {
 	 */
 	public function is($key)
 	{
-		if (!is_string($key) || !self::$__environments->hasKey($key)) return false;
+		if (!is_string($key) || !$this->__environments->hasKey($key)) return false;
 
-		$env = self::$__environments->get($key);
+		$env = $this->__environments->get($key);
 
 		return $env->hasHost($_SERVER['SERVER_NAME']);
 	}
@@ -116,14 +116,14 @@ class EnvManager extends \Ponticlaro\Bebop\Common\Patterns\SingletonAbstract {
 	 */
 	public function getCurrent()
 	{
-		$envs = self::$__environments->getAll();
+		$envs = $this->__environments->getAll();
 
 		foreach ($envs as $key => $env) {
 			
 			if ($env->isCurrent()) return $env;
 		}
 
-		return self::$__environments->get('development');
+		return $this->__environments->get('development');
 	}
 
 	/**
