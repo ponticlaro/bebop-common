@@ -11,7 +11,7 @@ class ObjectTracker extends \Ponticlaro\Bebop\Common\Patterns\SingletonAbstract 
 	 * List with all the tracked object types lists
 	 * @var array
 	 */
-	protected static $lists = array();
+	protected $lists = array();
 
 	/**
 	 * Tracks Bebop objects
@@ -26,12 +26,12 @@ class ObjectTracker extends \Ponticlaro\Bebop\Common\Patterns\SingletonAbstract 
 		$type = $object->getObjectType();
 
 		// Add object type collection if not already present
-		if ($type && !isset(self::$lists[$type])) 
-			self::$lists[$type] = (new Collection)->disableDottedNotation();
+		if ($type && !isset($this->lists[$type])) 
+			$this->lists[$type] = (new Collection)->disableDottedNotation();
 
 		// Add object to its type collection
 		if($type && $id) 
-			self::$lists[$type]->set($id, $object);
+			$this->lists[$type]->set($id, $object);
 
 		return $this;
 	}
@@ -45,6 +45,6 @@ class ObjectTracker extends \Ponticlaro\Bebop\Common\Patterns\SingletonAbstract 
 	 */
 	public function get($type, $id)
 	{
-		return isset(self::$lists[$type]) ? self::$lists[$type]->get($id) : null;
+		return isset($this->lists[$type]) ? $this->lists[$type]->get($id) : null;
 	}
 }
