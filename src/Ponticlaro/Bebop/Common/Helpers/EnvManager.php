@@ -20,11 +20,11 @@ class EnvManager extends \Ponticlaro\Bebop\Common\Patterns\SingletonAbstract {
 	protected function __construct()
 	{
 		// Instantiate environments collection object
-		$this->__environments = new Collection(array(
+		$this->__environments = (new Collection(array(
 			'development' => new Env('development'),
 			'staging'     => new Env('staging'),
 			'production'  => new Env('production')
-		))->disableDottedNotation();
+		)))->disableDottedNotation();
 	}
 
 	/**
