@@ -101,7 +101,7 @@ class Utils
         if (trim($html)) {
 
             $doc = new \DOMDocument;
-            $doc->loadHTML($html);
+            @$doc->loadHTML($html);
 
             $patterns = array(
             	"/\[\]/",       // e.g. items[]
