@@ -12,14 +12,14 @@ class ContextManager extends \Ponticlaro\Bebop\Common\Patterns\SingletonAbstract
 	 * 
 	 * @var Ponticlaro\Bebop\Common\Helpers\ContextManager
 	 */
-	private static $instance;
+	private $instance;
 
 	/**
 	 * Current context key
 	 * 
 	 * @var string
 	 */
-	protected static $current;
+	protected $current;
 
 	/**
 	 * Used to store the current context when
@@ -27,25 +27,26 @@ class ContextManager extends \Ponticlaro\Bebop\Common\Patterns\SingletonAbstract
 	 * 
 	 * @var string
 	 */
-	protected static $current_backup;
+	protected $current_backup;
 
 	/**
 	 * List of Context Containers
 	 *  
 	 * @var Ponticlaro\Bebop\Common\Collection
 	 */
-	protected static $contexts;
+	protected $contexts;
 
 	/**
 	 * Instantiates Context Manager
+	 * 
 	 */
 	protected function __construct()
 	{
 		// Instantiate contexts collection
-		self::$contexts = new Collection()->disableDottedNotation();
+		$this->contexts = (new Collection())->disableDottedNotation();
 
 		// Add default context rules
-		self::add('default', function($query) {
+		$this->add('default', function($query) {
 
 		    $key = null;
 
@@ -91,7 +92,7 @@ class ContextManager extends \Ponticlaro\Bebop\Common\Patterns\SingletonAbstract
 		});
 		
 		// Add action to define current context
-		add_action('wp', array('Ponticlaro\Bebop\Common\Helpers\ContextManager', 'defineCurrent'));
+		add_action('wp', array($this, 'defineCurrent'));
 	}
 
 	/**
@@ -100,15 +101,15 @@ class ContextManager extends \Ponticlaro\Bebop\Common\Patterns\SingletonAbstract
 	 * 
 	 * @return void
 	 */
-	public static function defineCurrent()
+	public function defineCurrent()
 	{
-		foreach (self::$contexts->getAll() as $context_container) {
+		foreach ($this->contexts->getAll() as $context_container) {
 			
 			$key = $context_container->run();
 
 			if ($key) {
 
-				self::$current = $key;
+				$this->current = $key;
 				break;
 			}
 		}
@@ -122,11 +123,11 @@ class ContextManager extends \Ponticlaro\Bebop\Common\Patterns\SingletonAbstract
 	 * @param  boolean $is_pattern True if the $key should be treated as a regular expression
 	 * @return boolean             True if there is a match, false otherwise
 	 */
-	public static function is($key, $is_pattern = false)
+	public function is($key, $is_pattern = false)
 	{
 		$pattern = $is_pattern ? $key : '/^'. preg_quote($key, '/') .'*/';
 
-		return preg_match($pattern, self::$current) ? true : false;	
+		return preg_match($pattern, $this->current) ? true : false;	
 	}
 
 	/**
@@ -135,9 +136,9 @@ class ContextManager extends \Ponticlaro\Bebop\Common\Patterns\SingletonAbstract
 	 * @param  string  $key Context string to check
 	 * @return boolean      True if it partially or fully matches, false otherwhise
 	 */
-	public static function equals($key)
+	public function equals($key)
 	{
-		return self::$current === $key ? true : false;
+		return $this->current === $key ? true : false;
 	}
 
 	/**
@@ -145,9 +146,9 @@ class ContextManager extends \Ponticlaro\Bebop\Common\Patterns\SingletonAbstract
 	 * 
 	 * @return string
 	 */
-	public static function getCurrent()
+	public function getCurrent()
 	{
-		return self::$current;
+		return $this->current;
 	}
 
 	/**
@@ -157,15 +158,15 @@ class ContextManager extends \Ponticlaro\Bebop\Common\Patterns\SingletonAbstract
 	 * @param  string $key
 	 * @return Ponticlaro\Bebop\Common\Helpers\ContextManager Context Manager instance
 	 */
-	public static function overrideCurrent($key)
+	public function overrideCurrent($key)
 	{
 		if (is_string($key)) {
 			
-			self::$current_backup = self::$current;
-			self::$current        = $key;
+			$this->current_backup = $this->current;
+			$this->current        = $key;
 		}
 
-		return self::$instance;
+		return $this->instance;
 	}
 
 	/**
@@ -173,15 +174,15 @@ class ContextManager extends \Ponticlaro\Bebop\Common\Patterns\SingletonAbstract
 	 * 
 	 * @return Ponticlaro\Bebop\Common\Helpers\ContextManager Context Manager instance
 	 */
-	public static function restoreCurrent()
+	public function restoreCurrent()
 	{
-		if (!is_null(self::$current_backup)) {
+		if (!is_null($this->current_backup)) {
 			
-			self::$current        = self::$current_backup;
-			self::$current_backup = null;
+			$this->current        = $this->current_backup;
+			$this->current_backup = null;
 		}
 
-		return self::$instance;
+		return $this->instance;
 	}
 
 	/**
@@ -190,9 +191,9 @@ class ContextManager extends \Ponticlaro\Bebop\Common\Patterns\SingletonAbstract
 	 * @param  string                                           $id ID of the target context container
 	 * @return Ponticlaro\Bebop\Common\Helpers\ContextContainer     Target context container
 	 */
-	public static function get($id)
+	public function get($id)
 	{
-		return self::__getContextById($id);
+		return $this->__getContextById($id);
 	}
 
 	/**
@@ -201,9 +202,9 @@ class ContextManager extends \Ponticlaro\Bebop\Common\Patterns\SingletonAbstract
 	 * @param string $id Context Container ID
 	 * @param string $fn Context Container function
 	 */
-	public static function add($id, $fn)
+	public function add($id, $fn)
 	{
-		self::prepend($id, $fn);
+		$this->prepend($id, $fn);
 	}
 
 	/**
@@ -213,14 +214,14 @@ class ContextManager extends \Ponticlaro\Bebop\Common\Patterns\SingletonAbstract
 	 * @param  string                                         $fn Context Container function
 	 * @return Ponticlaro\Bebop\Common\Helpers\ContextManager     Context Manager instance
 	 */
-	public static function prepend($id, $fn)
+	public function prepend($id, $fn)
 	{
 		if (is_string($id) && is_callable($fn)) {
 
-			self::$contexts->unshift(new ContextContainer($id, $fn));
+			$this->contexts->unshift(new ContextContainer($id, $fn));
 		}
 
-		return self::$instance;
+		return $this->instance;
 	}
 
 	/**
@@ -230,14 +231,14 @@ class ContextManager extends \Ponticlaro\Bebop\Common\Patterns\SingletonAbstract
 	 * @param  string                                         $fn Context Container function
 	 * @return Ponticlaro\Bebop\Common\Helpers\ContextManager     Context Manager instance
 	 */
-	public static function append($id, $fn)
+	public function append($id, $fn)
 	{	
 		if (is_string($id) && is_callable($fn)) {
 
-			self::$contexts->push(new ContextContainer($id, $fn));
+			$this->contexts->push(new ContextContainer($id, $fn));
 		}
 
-		return self::$instance;
+		return $this->instance;
 	}
 
 	/**
@@ -246,11 +247,11 @@ class ContextManager extends \Ponticlaro\Bebop\Common\Patterns\SingletonAbstract
 	 * @param  string                                           $id ID of the target context container
 	 * @return Ponticlaro\Bebop\Common\Helpers\ContextContainer     Target context container
 	 */
-	private static function __getContextById($id)
+	private function __getContextById($id)
 	{
 		$target_context = null;
 
-		foreach (self::$contexts->getAll() as $context) {
+		foreach ($this->contexts->getAll() as $context) {
 			
 			if ($context->getId() == $id) {
 				
