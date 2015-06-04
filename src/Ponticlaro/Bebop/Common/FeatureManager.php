@@ -4,41 +4,32 @@ namespace Ponticlaro\Bebop\Common;
 
 use Ponticlaro\Bebop\Common\Collection;
 
-class FeatureManager {
+class FeatureManager extends \Ponticlaro\Bebop\Common\Patterns\SingletonAbstract {
 
-    private static $instance;
-
-    protected static $features;
+    protected $features;
 
     protected function __construct()
     {
-        static::$features = new Collection();
+        $this->features = new Collection;
     }
 
-    public static function getInstance()
-    {
-        if (is_null(static::$instance)) static::$instance = new static;
-        
-        return static::$instance;
-    }
-
-    public static function add($id, array $config = array())
+    public function add($id, array $config = array())
     {
         if (!is_string($id))
             throw new \Exception("Feature ID must be a string");
             
-        static::$features->set($id, new Feature($id, $config));
+        $this->features->set($id, new Feature($id, $config));
 
-        return static::get($id);
+        return $this->get($id);
     }
 
-    public static function &get($id)
+    public function &get($id)
     {
-        return static::$features->get($id);
+        return $this->features->get($id);
     } 
 
-    public static function exists($id)
+    public function exists($id)
     {
-        return static::$features->hasKey($id);
+        return $this->features->hasKey($id);
     }
 }
