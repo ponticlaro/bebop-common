@@ -8,13 +8,6 @@ use Ponticlaro\Bebop\Common\Helpers\ContextContainer;
 class ContextManager extends \Ponticlaro\Bebop\Common\Patterns\SingletonAbstract {
 
 	/**
-	 * Contains Context Manager instance
-	 * 
-	 * @var Ponticlaro\Bebop\Common\Helpers\ContextManager
-	 */
-	private $instance;
-
-	/**
 	 * Current context key
 	 * 
 	 * @var string
@@ -166,7 +159,7 @@ class ContextManager extends \Ponticlaro\Bebop\Common\Patterns\SingletonAbstract
 			$this->current        = $key;
 		}
 
-		return $this->instance;
+		return $this;
 	}
 
 	/**
@@ -182,7 +175,7 @@ class ContextManager extends \Ponticlaro\Bebop\Common\Patterns\SingletonAbstract
 			$this->current_backup = null;
 		}
 
-		return $this->instance;
+		return $this;
 	}
 
 	/**
@@ -221,7 +214,7 @@ class ContextManager extends \Ponticlaro\Bebop\Common\Patterns\SingletonAbstract
 			$this->contexts->unshift(new ContextContainer($id, $fn));
 		}
 
-		return $this->instance;
+		return $this;
 	}
 
 	/**
@@ -238,7 +231,7 @@ class ContextManager extends \Ponticlaro\Bebop\Common\Patterns\SingletonAbstract
 			$this->contexts->push(new ContextContainer($id, $fn));
 		}
 
-		return $this->instance;
+		return $this;
 	}
 
 	/**
