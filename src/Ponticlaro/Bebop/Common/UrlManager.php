@@ -1,6 +1,6 @@
 <?php
 
-namespace Ponticlaro\Bebop\Common\Helpers;
+namespace Ponticlaro\Bebop\Common;
 
 use Ponticlaro\Bebop\Common\Collection;
 

@@ -1,6 +1,6 @@
 <?php
 
-namespace Ponticlaro\Bebop\Common\Helpers;
+namespace Ponticlaro\Bebop\Common;
 
 use Ponticlaro\Bebop\Common\Collection;
 
@@ -86,7 +86,7 @@ class PathManager extends \Ponticlaro\Bebop\Common\Patterns\SingletonAbstract {
     public function __call($name, $args)
     {
         if (!method_exists($this->__paths, $name))
-            throw new \Exception("UrlManager->$name method do not exist", 1);
+            throw new \Exception("PathManager->$name method do not exist", 1);
 
         return call_user_func_array(array($this->__paths, $name), $args);
     }

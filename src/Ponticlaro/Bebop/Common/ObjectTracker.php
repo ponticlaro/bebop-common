@@ -1,6 +1,6 @@
 <?php
 
-namespace Ponticlaro\Bebop\Common\Helpers;
+namespace Ponticlaro\Bebop\Common;
 
 use Ponticlaro\Bebop\Common\Collection;
 use Ponticlaro\Bebop\Common\Patterns\TrackableObjectAbstract;
@@ -27,7 +27,7 @@ class ObjectTracker extends \Ponticlaro\Bebop\Common\Patterns\SingletonAbstract 
 
 		// Add object type collection if not already present
 		if ($type && !isset(self::$lists[$type])) 
-			self::$lists[$type] = new Collection()->disableDottedNotation();
+			self::$lists[$type] = (new Collection)->disableDottedNotation();
 
 		// Add object to its type collection
 		if($type && $id) 
