@@ -5,6 +5,14 @@ namespace Ponticlaro\Bebop\Common\Helpers;
 use Ponticlaro\Bebop\Common\Collection;
 use Ponticlaro\Bebop\Common\Helpers\ContextContainer;
 
+/**
+ * This class must be instantiated via getInstance() before the 'wp' action hook,
+ * otherwise it won't be able to get the current context
+ *
+ * Consequently all context containers must also be added before the 'wp' action hook,
+ * otherwise those won't be used to find the correct context
+ * 
+ */
 class ContextManager extends \Ponticlaro\Bebop\Common\Patterns\SingletonAbstract {
 
 	/**
