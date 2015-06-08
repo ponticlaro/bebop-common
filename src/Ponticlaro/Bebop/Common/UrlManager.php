@@ -4,7 +4,7 @@ namespace Ponticlaro\Bebop\Common;
 
 use Ponticlaro\Bebop\Common\Collection;
 
-class UrlManager extends \Ponticlaro\Bebop\Common\Patterns\SingletonAbstract; {
+class UrlManager extends \Ponticlaro\Bebop\Common\Patterns\SingletonAbstract {
 
     /**
      * List of environments
