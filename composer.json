@@ -16,8 +16,8 @@
         }
     ],
     "autoload": {
-        "psr-0": {
-            "Ponticlaro": "src/"
+        "psr-4": {
+            "Ponticlaro\\Bebop\\Common\\": "src/"
         }
     },
     "support": {

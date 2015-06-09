@@ -4,8 +4,8 @@ namespace Ponticlaro\Bebop\Common;
 
 class StaticAssetsServer {
 
-	public function __construct(\Ponticlaro\Bebop\HttpApi\HttpApi $http_api, $directory)
-	{
+    public function __construct(\Ponticlaro\Bebop\HttpApi\HttpApi $http_api, $directory)
+    {
         if (!is_string($directory))
             throw new \UnexpectedValueException("Directory to serve must be a string");
 
@@ -13,14 +13,14 @@ class StaticAssetsServer {
             throw new \UnexpectedValueException("Directory to serve must be readable");
 
         // Set unique resource to capture all requests
-        $http_api->get('/.*?', function() use($http_api) {
+        $http_api->get('/.*?', function() use($http_api, $directory) {
 
             // Get slim instance
             $slim = $http_api->slim();
 
             // Find asset path
             $relative_path = str_replace($http_api->getBaseUrl(), '', $slim->request()->getResourceUri());
-            $path          = $paths->getPath($directory, $relative_path);
+            $path          = rtrim($directory, DIRECTORY_SEPARATOR) . DIRECTORY_SEPARATOR . ltrim($relative_path, '/');
 
             // Search for target files
             $list = glob($path .'.*');
@@ -69,5 +69,5 @@ class StaticAssetsServer {
             // Return file content
             return file_get_contents($path);
         });
-	}
+    }
 }
