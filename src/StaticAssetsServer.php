@@ -2,9 +2,11 @@
 
 namespace Ponticlaro\Bebop\Common;
 
+use Ponticlaro\Bebop\HttpApi;
+
 class StaticAssetsServer {
 
-    public function __construct(\Ponticlaro\Bebop\HttpApi\HttpApi $http_api, $directory)
+    public function __construct(HttpApi $http_api, $directory)
     {
         if (!is_string($directory))
             throw new \UnexpectedValueException("Directory to serve must be a string");
