@@ -106,7 +106,7 @@ class EnvManager extends \Ponticlaro\Bebop\Common\Patterns\SingletonAbstract {
 
         $env = $this->__environments->get($key);
 
-        return $env->hasHost($_SERVER['SERVER_NAME']);
+        return $env ? $env->isCurrent() : false;
     }
 
     /**
@@ -120,7 +120,8 @@ class EnvManager extends \Ponticlaro\Bebop\Common\Patterns\SingletonAbstract {
 
         foreach ($envs as $key => $env) {
             
-            if ($env->isCurrent()) return $env;
+            if ($env->isCurrent()) 
+                return $env;
         }
 
         return $this->__environments->get('development');

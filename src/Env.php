@@ -53,7 +53,8 @@ class Env {
      */
     public function addHost($host)
     {
-        if (is_string($host)) $this->__hosts->push($host);
+        if (is_string($host)) 
+            $this->__hosts->push($host);
 
         return $this;
     }
@@ -91,7 +92,8 @@ class Env {
      */
     public function hasHost($host)
     {
-        if (!is_string($host)) return false;
+        if (!is_string($host)) 
+            return false;
 
         return $this->__hosts->hasValue($host);
     }
@@ -102,7 +104,19 @@ class Env {
      * @return boolean True if listed in this environment, false otherwise
      */
     public function isCurrent()
-    {
-        return $this->__hosts->hasValue($_SERVER['SERVER_NAME']);
+    {   
+        // Use Hosts to determine current environment
+        if ($this->__hosts->count() >= 1) {
+            
+            return $this->__hosts->hasValue($_SERVER['SERVER_NAME']);
+        }
+
+        // Use APP_ENV to determine current environment
+        elseif (getenv('APP_ENV') && getenv('APP_ENV') == $this->__key) {
+
+            return true;
+        }
+
+        return false;
     }
 }
