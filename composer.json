@@ -18,7 +18,7 @@
   "require": {
     "erusev/parsedown": "^1",
     "erusev/parsedown-extra": "^0",
-    "michelf/php-smartypants": "dev-master"
+    "michelf/php-smartypants": "1.6.x-dev"
   },
   "autoload": {
     "psr-4": {
