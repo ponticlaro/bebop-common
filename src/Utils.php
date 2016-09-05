@@ -111,6 +111,9 @@ class Utils
     if (!is_string($content)) 
       return null;
 
+    if (!class_exists('Michelf\SmartyPants'))
+      return $content;
+
     return \Michelf\SmartyPants::defaultTransform($content);
   }
 
