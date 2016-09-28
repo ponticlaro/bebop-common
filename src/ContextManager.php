@@ -26,9 +26,9 @@ class ContextManager extends \Ponticlaro\Bebop\Common\Patterns\SingletonAbstract
      * Used to store the current context when
      * manually defining the context key
      * 
-     * @var string
+     * @var array
      */
-    protected $current_backup;
+    protected $current_backups = [];
 
     /**
      * List of Context Containers
@@ -163,8 +163,8 @@ class ContextManager extends \Ponticlaro\Bebop\Common\Patterns\SingletonAbstract
     {
         if (is_string($key)) {
             
-            $this->current_backup = $this->current;
-            $this->current        = $key;
+            $this->current_backups[] = $this->current;
+            $this->current           = $key;
         }
 
         return $this;
@@ -177,11 +177,8 @@ class ContextManager extends \Ponticlaro\Bebop\Common\Patterns\SingletonAbstract
      */
     public function restoreCurrent()
     {
-        if (!is_null($this->current_backup)) {
-            
-            $this->current        = $this->current_backup;
-            $this->current_backup = null;
-        }
+        if ($this->current_backups)
+            $this->current = array_pop($this->current_backups);
 
         return $this;
     }
