@@ -6,73 +6,135 @@ use Ponticlaro\Bebop\Common\Collection;
 
 class Feature {
 
-    protected $id;
+  /**
+   * Featured ID
+   * 
+   * @var string
+   */
+  protected $id;
 
-    protected $config;
+  /**
+   * Feature configuration object
+   * 
+   * @var Ponticlaro\Bebop\Common\Collection object
+   */
+  protected $config;
 
-    protected $enabled = false;
+  /**
+   * Enabled status
+   * 
+   * @var boolean
+   */
+  protected $enabled = false;
 
-    public function __construct($id, array $config = array())
-    {
-        if (!is_string($id))
-            throw new \Exception("Feature id must be a string");
+  /**
+   * Instantiates feature
+   * 
+   * @param string $id     Feature ID
+   * @param array  $config Feature configuration array
+   */
+  public function __construct($id, array $config = array())
+  {
+    if (!is_string($id))
+      throw new \Exception("Feature id must be a string");
 
-        $this->id     = $id;
-        $this->config = new Collection();
+    $this->id     = $id;
+    $this->config = new Collection();
 
-        if ($config) {
-
-            foreach ($config as $key => $value) {
-                
-                $this->set($key, $value);
-            }
-        }
+    if ($config) {
+      foreach ($config as $key => $value) {
+        $this->set($key, $value);
+      }
     }
+  }
 
-    public function enable()
-    {
-        $this->enabled = true;
+  /**
+   * Enables feature
+   * 
+   * @return object Current feature object
+   */
+  public function enable()
+  {
+    $this->enabled = true;
 
-        return $this;
-    }
+    return $this;
+  }
 
-    public function disable()
-    {
-        $this->enabled = false;
+  /**
+   * Disables feature
+   * 
+   * @return object Current feature object
+   */
+  public function disable()
+  {
+    $this->enabled = false;
 
-        return $this;
-    }
+    return $this;
+  }
 
-    public function isEnabled()
-    {
-        return $this->enabled;
-    }
+  /**
+   * Checks if feature is enabled
+   * 
+   * @return object Current feature object
+   */
+  public function isEnabled()
+  {
+    return $this->enabled;
+  }
 
-    public function getId()
-    {
-        return $this->id;
-    }
+  /**
+   * Returns featued ID
+   * 
+   * @return string Feature ID
+   */
+  public function getId()
+  {
+    return $this->id;
+  }
 
-    public function set($key, $value)
-    {
-        if (is_string($key))
-            $this->config->set($key, $value);
+  /**
+   * Sets a single configuration value
+   * 
+   * @param string $key   Configuration key
+   * @param mixed  $value Configuration value
+   */
+  public function set($key, $value)
+  {
+    if (is_string($key))
+      $this->config->set($key, $value);
 
-        return $this;
-    }
+    return $this;
+  }
 
-    public function get($key)
-    {
-        return is_string($key) ? $this->config->get($key) : null;
-    }
+  /**
+   * Returns a single configuration value
+   * 
+   * @param  string $key   Configuration key
+   * @return mixed  $value Configuration value
+   */
+  public function get($key)
+  {
+    return is_string($key) ? $this->config->get($key) : null;
+  }
 
-    public function has($key)
-    {
-        return is_string($key) ? $this->config->hasKey($key) : false;
-    }
+  /**
+   * Checks if the target configuration key exists
+   * 
+   * @param  string $key Configuration key
+   * @return boolean     True if exists, false otherwise
+   */
+  public function has($key)
+  {
+    return is_string($key) ? $this->config->hasKey($key) : false;
+  }
 
-    public function getAll()
-    {
-        return $this->config->getAll();
-    }
+  /**
+   * Get the full configuration array
+   * 
+   * @return array Full configuration array
+   */
+  public function getAll()
+  {
+    return $this->config->getAll();
+  }
 }

@@ -3,33 +3,65 @@
 namespace Ponticlaro\Bebop\Common;
 
 use Ponticlaro\Bebop\Common\Collection;
+use Ponticlaro\Bebop\Common\Feature;
 
 class FeatureManager extends \Ponticlaro\Bebop\Common\Patterns\SingletonAbstract {
 
-    protected $features;
+  /**
+   * Features collection
+   * 
+   * @var Ponticlaro\Bebop\Common\Collection object
+   */
+  protected $features;
 
-    protected function __construct()
-    {
-        $this->features = new Collection;
-    }
+  /**
+   * Instantiates feature manager
+   * 
+   */
+  protected function __construct()
+  {
+    $this->features = new Collection;
 
-    public function add($id, array $config = array())
-    {
-        if (!is_string($id))
-            throw new \Exception("Feature ID must be a string");
-            
-        $this->features->set($id, new Feature($id, $config));
+    ///////////////////////
+    // Built-in features //
+    ///////////////////////
 
-        return $this->get($id);
-    }
+    // MVC / Model / Loadables Auto Context
+    $loadables_auto_context = (new Feature('mvc/model/loadables_auto_context'))->enable();
+    $this->add($loadables_auto_context);
+  }
 
-    public function &get($id)
-    {
-        return $this->features->get($id);
-    } 
+  /**
+   * Adds a single feature
+   * 
+   * @param Feature $feature Feature object to be added
+   */
+  public function add(Feature $feature)
+  {
+    $this->features->set($feature->getId(), $feature);
 
-    public function exists($id)
-    {
-        return $this->features->hasKey($id);
-    }
+    return $this;
+  }
+
+  /**
+   * Returns feature object
+   * 
+   * @param  string $id ID of the target feature
+   * @return object     Target feature object
+   */
+  public function get($id)
+  {
+    return $this->features->get($id);
+  } 
+
+  /**
+   * Checks if there is a feature with the target ID
+   * 
+   * @param  string $id ID of the target feature
+   * @return bool       True if exists, false otherwise
+   */
+  public function exists($id)
+  {
+    return $this->features->hasKey($id);
+  }
 }
