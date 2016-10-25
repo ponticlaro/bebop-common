@@ -55,6 +55,16 @@ class FeatureManager extends \Ponticlaro\Bebop\Common\Patterns\SingletonAbstract
   } 
 
   /**
+   * Returns all features
+   * 
+   * @return array List containing all existing features
+   */
+  public function getAll()
+  {
+    return $this->features->getAll();
+  } 
+
+  /**
    * Checks if there is a feature with the target ID
    * 
    * @param  string $id ID of the target feature
