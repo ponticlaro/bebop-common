@@ -19,10 +19,16 @@
     "erusev/parsedown": "^1",
     "erusev/parsedown-extra": "^0"
   },
+  "require-dev": {
+    "apigen/apigen": "^4"
+  },
   "autoload": {
     "psr-4": {
       "Ponticlaro\\Bebop\\Common\\": "src/"
     }
+  },
+  "scripts": {
+    "generate-docs": "apigen generate --config ./apigen.yaml"
   },
   "support": {
     "email": "hello@ponticlaro.com"
