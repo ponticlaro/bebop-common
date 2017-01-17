@@ -20,6 +20,9 @@
     "erusev/parsedown-extra": "^0"
   },
   "require-dev": {
+    "codeception/codeception": "^2",
+    "10up/wp_mock": "^0",
+    "lucatume/wp-browser": "^1",
     "apigen/apigen": "^4"
   },
   "autoload": {
