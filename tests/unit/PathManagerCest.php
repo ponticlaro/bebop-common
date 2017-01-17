@@ -73,6 +73,12 @@ class PathManagerCest
    */
   public function get(UnitTester $I)
   {
+    // Testing value
+    $path = PathManager::getInstance()->get('theme');
+
+    $I->assertEquals($this->paths['theme'], $path);
+
+    // Testing value + relative path
     $path = PathManager::getInstance()->get('theme', '/assets/main.css');
 
     $I->assertEquals($this->paths['theme'] .'assets/main.css', $path);

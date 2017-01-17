@@ -86,6 +86,12 @@ class UrlManagerCest
    */
   public function get(UnitTester $I)
   {
+    // Testing value
+    $url = UrlManager::getInstance()->get('theme');
+
+    $I->assertEquals($this->urls['theme'], $url);
+
+    // Testing value + relative url
     $url = UrlManager::getInstance()->get('theme', '/assets/main.css');
 
     $I->assertEquals($this->urls['theme'] .'assets/main.css', $url);
