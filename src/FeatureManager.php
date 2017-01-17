@@ -29,6 +29,10 @@ class FeatureManager extends \Ponticlaro\Bebop\Common\Patterns\SingletonAbstract
     // MVC / Model / Loadables Auto Context
     $loadables_auto_context = (new Feature('mvc/model/loadables_auto_context'))->enable();
     $this->add($loadables_auto_context);
+
+    // HTTP API / V2 Data Models
+    $http_api_v2_models = (new Feature('http_api/v2_data_models'))->enable();
+    $this->add($http_api_v2_models);
   }
 
   /**
