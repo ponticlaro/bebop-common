@@ -21,9 +21,6 @@ class PathManagerCest
 
   public function _before(UnitTester $I)
   {
-    if (!defined('ABSPATH'))
-      define('ABSPATH', $this->paths['root']);
-
     \WP_Mock::setUp();
 
     \WP_Mock::wpFunction('wp_upload_dir', [

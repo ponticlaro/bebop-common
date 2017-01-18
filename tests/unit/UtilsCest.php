@@ -8,24 +8,13 @@ class UtilsCest
 {
   public function _before(UnitTester $I)
   {
-    // WordPress constants must be set before \WP_Mock::setUp();
-    // 
-    // Used by:
-    // - ::getPathUrl
-    // 
-    if (!defined('ABSPATH'))
-      define('ABSPATH', '/var/www/');
-
-    if (!defined('WP_CONTENT_URL'))
-      define('WP_CONTENT_URL', 'http://wp.local/wp-content');
-
-    test::clean();
+    Test::clean();
     \WP_Mock::setUp();
   }
 
   public function _after(UnitTester $I)
   {
-    test::clean();
+    Test::clean();
     \WP_Mock::tearDown();
   }
 
