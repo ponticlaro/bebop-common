@@ -74,14 +74,17 @@ class FeatureCest
   }
 
   /**
-   * Testing Feature::set()
+   * Testing:
+   * - Feature::set()
+   * - Feature::get()
+   * - Feature::has()
    * 
    * @param UnitTester $I Tester Module
    */
   public function setGetHas(UnitTester $I)
   {
     $feat = new Feature($this->fid, $this->fconfig);
-  
+   
     $value = $feat->set('key_3', 'value_3')->get('key_3');
 
     $I->assertEquals('value_3', $value);

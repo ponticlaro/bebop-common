@@ -78,4 +78,15 @@ class FeatureManager extends \Ponticlaro\Bebop\Common\Patterns\SingletonAbstract
   {
     return $this->features->hasKey($id);
   }
+
+  /**
+   * Clears features
+   * 
+   */
+  public function clear()
+  {
+    $this->features->clear();
+
+    return $this;
+  }
 }
