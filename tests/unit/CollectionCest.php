@@ -1,5 +1,6 @@
 <?php
 
+use AspectMock\Test;
 use Ponticlaro\Bebop\Common\Collection;
 
 /**
@@ -37,12 +38,63 @@ class CollectionCest
 
   public function _before(UnitTester $I)
   {
-
+    Test::clean();
   }
 
   public function _after(UnitTester $I)
   {
+    Test::clean();
+  }
 
+  /**
+   * @author cristianobaptista
+   * @covers Ponticlaro\Bebop\Common\Collection::__construct
+   * 
+   * @param  UnitTester $I Tester Module
+   * @return void        
+   */
+  public function create(UnitTester $I)
+  {
+    // Mock Collection
+    $coll_mock = Test::double('Ponticlaro\Bebop\Common\Collection');
+
+    new Collection($this->data);
+
+    $coll_mock->verifyInvokedOnce('set');
+  }
+
+  /**
+   * @author cristianobaptista
+   * @covers Ponticlaro\Bebop\Common\Collection::enableDottedNotation
+   * @covers Ponticlaro\Bebop\Common\Collection::disableDottedNotation
+   * @covers Ponticlaro\Bebop\Common\Collection::isDottedNotationEnabled
+   * 
+   * @param  UnitTester $I Tester Module
+   * @return void        
+   */
+  public function checkDottedNotation(UnitTester $I)
+  { 
+    // Get reflection of isDottedNotationEnabled protected method
+    $method = new ReflectionMethod('Ponticlaro\Bebop\Common\Collection', 'isDottedNotationEnabled');
+    $method->setAccessible(true);
+
+    // Create testable instance
+    $coll = new Collection($this->data);
+
+    // Confirm dot notation is enabled by default
+    $I->assertTrue($method->invoke($coll));
+
+    // Disable dot notation
+    $coll->disableDottedNotation();
+
+    // Confirm dot notation can be disabled
+    $I->assertFalse($method->invoke($coll));
+
+    // Enable dot notation
+    $coll->enableDottedNotation();
+
+    // Confirm dot notation can be enabled
+    $I->assertTrue($method->invoke($coll));
   }
 
   /**
@@ -62,6 +114,7 @@ class CollectionCest
   /**
    * @author cristianobaptista
    * @covers Ponticlaro\Bebop\Common\Collection::set
+   * @covers Ponticlaro\Bebop\Common\Collection::__set
    * 
    * @param  UnitTester $I Tester Module
    * @return void        
@@ -70,13 +123,22 @@ class CollectionCest
   {
     $coll = new Collection($this->data);
 
+    // Testing ::__set
+    $coll_mock = Test::double('Ponticlaro\Bebop\Common\Collection');
+
+    $coll->new_single              = 'value';
+    $coll->{'new_list.new_single'} = 'value';
+
+    $coll_mock->verifyInvokedMultipleTimes('__set', 2);
+
     $data = $coll->set('single', 'updated')      // Simple path testing
                  ->set('list.single', 'updated') // Dotted path testing
                  ->getAll();
 
     // Replicate modifications on source data
-    $src_data = $this->data;
-
+    $src_data                   = $this->data;
+    $src_data['new_single']     = 'value'; 
+    $src_data['new_list']       = ['new_single' => 'value']; 
     $src_data['single']         = 'updated'; 
     $src_data['list']['single'] = 'updated';
 
@@ -163,6 +225,7 @@ class CollectionCest
   /**
    * @author cristianobaptista
    * @covers Ponticlaro\Bebop\Common\Collection::unshift
+   * @covers Ponticlaro\Bebop\Common\Collection::__unshiftItem
    * 
    * @param  UnitTester $I Tester Module
    * @return void        
@@ -221,15 +284,17 @@ class CollectionCest
   public function push(UnitTester $I)
   {
     $coll = new Collection($this->data);
-    $data = $coll->push('new_value')              // Simple path testing
-                 ->push('new_value', 'list.list') // Dotted path testing
+    $data = $coll->push('new_value')                // Simple path testing
+                 ->push('new_value', 'list.list')   // Dotted path testing
+                 ->push('value', 'list.new_list') // Dotted path testing; To create new list
                  ->getAll();
 
     // Replicate modifications on source data
     $src_data = $this->data;
 
-    $src_data[]                 = 'new_value';
-    $src_data['list']['list'][] = 'new_value'; 
+    $src_data[]                   = 'new_value';
+    $src_data['list']['list'][]   = 'new_value'; 
+    $src_data['list']['new_list'] = ['value']; 
 
     $I->assertEquals($src_data, $data);
   }
@@ -310,6 +375,7 @@ class CollectionCest
   /**
    * @author cristianobaptista
    * @covers Ponticlaro\Bebop\Common\Collection::remove
+   * @covers Ponticlaro\Bebop\Common\Collection::__unset
    * 
    * @param  UnitTester $I Tester Module
    * @return void        
@@ -358,6 +424,7 @@ class CollectionCest
   /**
    * @author cristianobaptista
    * @covers Ponticlaro\Bebop\Common\Collection::get
+   * @covers Ponticlaro\Bebop\Common\Collection::__get
    * 
    * @param  UnitTester $I Tester Module
    * @return void        
@@ -442,6 +509,7 @@ class CollectionCest
   /**
    * @author cristianobaptista
    * @covers Ponticlaro\Bebop\Common\Collection::hasKey
+   * @covers Ponticlaro\Bebop\Common\Collection::__hasPath
    * 
    * @param  UnitTester $I Tester Module
    * @return void        
@@ -491,5 +559,21 @@ class CollectionCest
 
     // Dotted path testing
     $I->assertEquals(count($this->data['list']['list']), $coll->count('list.list'));
+  }
+
+  /**
+   * @author cristianobaptista
+   * @covers Ponticlaro\Bebop\Common\Collection::getIterator
+   * 
+   * @param  UnitTester $I Tester Module
+   * @return void        
+   */
+  public function getIterator(UnitTester $I)
+  {
+    $coll     = new Collection($this->data);
+    $iterator = $coll->getIterator();
+
+    $I->assertTrue($iterator instanceof \ArrayIterator);
+    $I->assertEquals((array) $iterator, $coll->getAll());
   }
 }
