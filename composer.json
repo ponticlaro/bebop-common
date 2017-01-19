@@ -41,7 +41,7 @@
   "support": {
     "email": "hello@ponticlaro.com",
     "issues": "https://github.com/ponticlaro/bebop-common/issues",
-    "forum": "https://gitter.im/ponticlaro-bebop"
+    "forum": "https://gitter.im/ponticlaro/bebop"
   },
   "minimum-stability": "dev",
   "prefer-stable": true
