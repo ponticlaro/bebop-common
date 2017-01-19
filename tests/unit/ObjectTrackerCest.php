@@ -17,6 +17,7 @@ class ObjectTrackerCest
   }
 
   /**
+   * @author cristianobaptista
    * @covers Ponticlaro\Bebop\Common\ObjectTracker::track
    * @covers Ponticlaro\Bebop\Common\ObjectTracker::get
    * 

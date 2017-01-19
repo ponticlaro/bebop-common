@@ -56,7 +56,9 @@ class UrlManagerCest
   }
 
   /**
-   * Testing UrlManager::getAll() and default URLs
+   * @author cristianobaptista
+   * @covers Ponticlaro\Bebop\Common\UrlManager::__construct
+   * @covers Ponticlaro\Bebop\Common\UrlManager::getAll
    * 
    * @param UnitTester $I Tester Module
    */
@@ -68,7 +70,8 @@ class UrlManagerCest
   }
 
   /**
-   * Testing UrlManager::set()
+   * @author cristianobaptista
+   * @covers Ponticlaro\Bebop\Common\UrlManager::set
    * 
    * @param UnitTester $I Tester Module
    */
@@ -80,7 +83,8 @@ class UrlManagerCest
   }
 
   /**
-   * Testing UrlManager::get()
+   * @author cristianobaptista
+   * @covers Ponticlaro\Bebop\Common\UrlManager::get
    * 
    * @param UnitTester $I Tester Module
    */

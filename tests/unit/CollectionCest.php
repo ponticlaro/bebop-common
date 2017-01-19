@@ -46,7 +46,8 @@ class CollectionCest
   }
 
   /**
-   * Testing Collection::clear()
+   * @author cristianobaptista
+   * @covers Ponticlaro\Bebop\Common\Collection::clear
    * 
    * @param  UnitTester $I Tester Module
    * @return void        
@@ -59,7 +60,8 @@ class CollectionCest
   }
 
   /**
-   * Testing Collection::set()
+   * @author cristianobaptista
+   * @covers Ponticlaro\Bebop\Common\Collection::set
    * 
    * @param  UnitTester $I Tester Module
    * @return void        
@@ -82,7 +84,8 @@ class CollectionCest
   }
 
   /**
-   * Testing Collection::setList()
+   * @author cristianobaptista
+   * @covers Ponticlaro\Bebop\Common\Collection::setList
    * 
    * @param  UnitTester $I Tester Module
    * @return void        
@@ -109,7 +112,8 @@ class CollectionCest
   }
 
   /**
-   * Testing Collection::add()
+   * @author cristianobaptista
+   * @covers Ponticlaro\Bebop\Common\Collection::add
    * 
    * @param  UnitTester $I Tester Module
    * @return void        
@@ -133,7 +137,8 @@ class CollectionCest
   }
 
   /**
-   * Testing Collection::shift()
+   * @author cristianobaptista
+   * @covers Ponticlaro\Bebop\Common\Collection::shift
    * 
    * @param  UnitTester $I Tester Module
    * @return void        
@@ -156,7 +161,8 @@ class CollectionCest
   }
 
   /**
-   * Testing Collection::unshift()
+   * @author cristianobaptista
+   * @covers Ponticlaro\Bebop\Common\Collection::unshift
    * 
    * @param  UnitTester $I Tester Module
    * @return void        
@@ -179,7 +185,8 @@ class CollectionCest
   }
 
   /**
-   * Testing Collection::unshiftList()
+   * @author cristianobaptista
+   * @covers Ponticlaro\Bebop\Common\Collection::unshiftList
    * 
    * @param  UnitTester $I Tester Module
    * @return void        
@@ -205,7 +212,8 @@ class CollectionCest
   }
 
   /**
-   * Testing Collection::push()
+   * @author cristianobaptista
+   * @covers Ponticlaro\Bebop\Common\Collection::push
    * 
    * @param  UnitTester $I Tester Module
    * @return void        
@@ -227,7 +235,8 @@ class CollectionCest
   }
 
   /**
-   * Testing Collection::pushList()
+   * @author cristianobaptista
+   * @covers Ponticlaro\Bebop\Common\Collection::pushList
    * 
    * @param  UnitTester $I Tester Module
    * @return void        
@@ -251,7 +260,8 @@ class CollectionCest
   }
 
   /**
-   * Testing Collection::pop()
+   * @author cristianobaptista
+   * @covers Ponticlaro\Bebop\Common\Collection::pop
    * 
    * @param  UnitTester $I Tester Module
    * @return void        
@@ -273,7 +283,8 @@ class CollectionCest
   }
 
   /**
-   * Testing Collection::popList()
+   * @author cristianobaptista
+   * @covers Ponticlaro\Bebop\Common\Collection::popList
    * 
    * @param  UnitTester $I Tester Module
    * @return void        
@@ -297,7 +308,8 @@ class CollectionCest
   }
 
   /**
-   * Testing Collection::remove()
+   * @author cristianobaptista
+   * @covers Ponticlaro\Bebop\Common\Collection::remove
    * 
    * @param  UnitTester $I Tester Module
    * @return void        
@@ -319,7 +331,8 @@ class CollectionCest
   }
 
   /**
-   * Testing Collection::removeList()
+   * @author cristianobaptista
+   * @covers Ponticlaro\Bebop\Common\Collection::removeList
    * 
    * @param  UnitTester $I Tester Module
    * @return void        
@@ -343,7 +356,8 @@ class CollectionCest
   }
 
   /**
-   * Testing Collection::get()
+   * @author cristianobaptista
+   * @covers Ponticlaro\Bebop\Common\Collection::get
    * 
    * @param  UnitTester $I Tester Module
    * @return void        
@@ -360,7 +374,8 @@ class CollectionCest
   }
 
   /**
-   * Testing Collection::getList()
+   * @author cristianobaptista
+   * @covers Ponticlaro\Bebop\Common\Collection::getList
    * 
    * @param  UnitTester $I Tester Module
    * @return void        
@@ -393,7 +408,8 @@ class CollectionCest
   }
 
   /**
-   * Testing Collection::getAll()
+   * @author cristianobaptista
+   * @covers Ponticlaro\Bebop\Common\Collection::getAll
    * 
    * @param  UnitTester $I Tester Module
    * @return void        
@@ -406,7 +422,8 @@ class CollectionCest
   }
 
   /**
-   * Testing Collection::getKeys()
+   * @author cristianobaptista
+   * @covers Ponticlaro\Bebop\Common\Collection::getKeys
    * 
    * @param  UnitTester $I Tester Module
    * @return void        
@@ -423,7 +440,8 @@ class CollectionCest
   }
 
   /**
-   * Testing Collection::hasKey()
+   * @author cristianobaptista
+   * @covers Ponticlaro\Bebop\Common\Collection::hasKey
    * 
    * @param  UnitTester $I Tester Module
    * @return void        
@@ -440,7 +458,8 @@ class CollectionCest
   }
 
   /**
-   * Testing Collection::hasValue()
+   * @author cristianobaptista
+   * @covers Ponticlaro\Bebop\Common\Collection::hasValue
    * 
    * @param  UnitTester $I Tester Module
    * @return void        
@@ -457,7 +476,8 @@ class CollectionCest
   }
 
   /**
-   * Testing Collection::count()
+   * @author cristianobaptista
+   * @covers Ponticlaro\Bebop\Common\Collection::count
    * 
    * @param  UnitTester $I Tester Module
    * @return void        

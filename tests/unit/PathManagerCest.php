@@ -40,7 +40,9 @@ class PathManagerCest
   }
 
   /**
-   * Testing PathManager::getAll() and default URLs
+   * @author cristianobaptista
+   * @covers Ponticlaro\Bebop\Common\PathManager::__construct
+   * @covers Ponticlaro\Bebop\Common\PathManager::getAll
    * 
    * @param UnitTester $I Tester Module
    */
@@ -52,7 +54,8 @@ class PathManagerCest
   }
 
   /**
-   * Testing PathManager::set()
+   * @author cristianobaptista
+   * @covers Ponticlaro\Bebop\Common\PathManager::set
    * 
    * @param UnitTester $I Tester Module
    */
@@ -64,7 +67,8 @@ class PathManagerCest
   }
 
   /**
-   * Testing PathManager::get()
+   * @author cristianobaptista
+   * @covers Ponticlaro\Bebop\Common\PathManager::get
    * 
    * @param UnitTester $I Tester Module
    */

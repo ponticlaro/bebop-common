@@ -19,10 +19,11 @@ class FeatureManagerCest
   }
 
   /**
-   * Testing:
-   * - FeatureManager::add()
-   * - FeatureManager::get()
-   * - FeatureManager::exists()
+   * @author cristianobaptista
+   * @covers Ponticlaro\Bebop\Common\FeatureManager::__construct
+   * @covers Ponticlaro\Bebop\Common\FeatureManager::add
+   * @covers Ponticlaro\Bebop\Common\FeatureManager::get
+   * @covers Ponticlaro\Bebop\Common\FeatureManager::exists
    * 
    * @param UnitTester $I Tester Module
    */
@@ -42,7 +43,8 @@ class FeatureManagerCest
   }
 
   /**
-   * Testing FeatureManager::getAll()
+   * @author cristianobaptista
+   * @covers Ponticlaro\Bebop\Common\FeatureManager::getAll
    * 
    * @param UnitTester $I Tester Module
    */
@@ -66,7 +68,8 @@ class FeatureManagerCest
   }
 
   /**
-   * Testing FeatureManager::clear()
+   * @author cristianobaptista
+   * @covers Ponticlaro\Bebop\Common\FeatureManager::clear
    * 
    * @param UnitTester $I Tester Module
    */

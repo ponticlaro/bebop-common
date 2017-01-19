@@ -28,7 +28,9 @@ class FeatureCest
   }
 
   /**
-   * Testing Feature::enable()
+   * @author cristianobaptista
+   * @covers Ponticlaro\Bebop\Common\Feature::enable
+   * @covers Ponticlaro\Bebop\Common\Feature::isEnabled
    * 
    * @param UnitTester $I Tester Module
    */
@@ -44,7 +46,9 @@ class FeatureCest
   }
 
   /**
-   * Testing Feature::disable()
+   * @author cristianobaptista
+   * @covers Ponticlaro\Bebop\Common\Feature::disable
+   * @covers Ponticlaro\Bebop\Common\Feature::isEnabled
    * 
    * @param UnitTester $I Tester Module
    */
@@ -62,7 +66,8 @@ class FeatureCest
   }
 
   /**
-   * Testing Feature::getId()
+   * @author cristianobaptista
+   * @covers Ponticlaro\Bebop\Common\Feature::getId
    * 
    * @param UnitTester $I Tester Module
    */
@@ -74,10 +79,10 @@ class FeatureCest
   }
 
   /**
-   * Testing:
-   * - Feature::set()
-   * - Feature::get()
-   * - Feature::has()
+   * @author cristianobaptista
+   * @covers Ponticlaro\Bebop\Common\Feature::set
+   * @covers Ponticlaro\Bebop\Common\Feature::get
+   * @covers Ponticlaro\Bebop\Common\Feature::has
    * 
    * @param UnitTester $I Tester Module
    */
@@ -92,7 +97,8 @@ class FeatureCest
   }
 
   /**
-   * Testing Feature::getAll()
+   * @author cristianobaptista
+   * @covers Ponticlaro\Bebop\Common\Feature::getAll
    * 
    * @param UnitTester $I Tester Module
    */

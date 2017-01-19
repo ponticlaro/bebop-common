@@ -19,7 +19,8 @@ class UtilsCest
   }
 
   /**
-   * Testing Utils::isNetwork()
+   * @author cristianobaptista
+   * @covers Ponticlaro\Bebop\Common\Utils::isNetwork
    * 
    * @param UnitTester $I Tester Module
    */
@@ -38,7 +39,8 @@ class UtilsCest
   }
 
   /**
-   * Testing Utils::camelcaseToUnderscore()
+   * @author cristianobaptista
+   * @covers Ponticlaro\Bebop\Common\Utils::camelcaseToUnderscore
    * 
    * @param UnitTester $I Tester Module
    */
@@ -72,7 +74,8 @@ class UtilsCest
   }
 
   /**
-   * Testing Utils::slugify()
+   * @author cristianobaptista
+   * @covers Ponticlaro\Bebop\Common\Utils::slugify
    * 
    * @param UnitTester $I Tester Module
    */
@@ -105,7 +108,8 @@ class UtilsCest
   }
 
   /**
-   * Testing Utils::parseMarkdown()
+   * @author cristianobaptista
+   * @covers Ponticlaro\Bebop\Common\Utils::parseMarkdown
    * 
    * @param UnitTester $I Tester Module
    */
@@ -135,7 +139,8 @@ class UtilsCest
   }
 
   /**
-   * Testing Utils::fixPunctuation()
+   * @author cristianobaptista
+   * @covers Ponticlaro\Bebop\Common\Utils::fixPunctuation
    * 
    * @param UnitTester $I Tester Module
    */
@@ -145,7 +150,8 @@ class UtilsCest
   } 
 
   /**
-   * Testing Utils::isJson()
+   * @author cristianobaptista
+   * @covers Ponticlaro\Bebop\Common\Utils::isJson
    * 
    * @param UnitTester $I Tester Module
    */
@@ -178,7 +184,8 @@ class UtilsCest
   } 
 
   /**
-   * Testing Utils::getFileVersion()
+   * @author cristianobaptista
+   * @covers Ponticlaro\Bebop\Common\Utils::getFileVersion
    * 
    * @param UnitTester $I Tester Module
    */
@@ -202,7 +209,8 @@ class UtilsCest
   } 
 
   /**
-   * Testing Utils::getPathUrl()
+   * @author cristianobaptista
+   * @covers Ponticlaro\Bebop\Common\Utils::getPathUrl
    * 
    * @param UnitTester $I Tester Module
    */
@@ -222,7 +230,8 @@ class UtilsCest
   } 
 
   /**
-   * Testing Utils::getControlNamesFromCallable()
+   * @author cristianobaptista
+   * @covers Ponticlaro\Bebop\Common\Utils::getControlNamesFromCallable
    * 
    * @param UnitTester $I Tester Module
    */
