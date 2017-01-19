@@ -99,6 +99,44 @@ class CollectionCest
 
   /**
    * @author cristianobaptista
+   * @covers Ponticlaro\Bebop\Common\Collection::setPathSeparator
+   * 
+   * @param  UnitTester $I Tester Module
+   * @return void        
+   */
+  public function setPathSeparator(UnitTester $I)
+  {
+    $coll = (new Collection($this->data))->setPathSeparator('/');
+
+    // Try to use dotted notation with previous separator
+    $value = $coll->get('list.single');
+
+    $I->assertNull($value);
+
+    $value = $coll->set('new_list.single')->get('new_list');
+
+    $I->assertNull($value);
+
+    $value = $coll->remove('list.single')->get('list');
+
+    $I->assertEquals($this->data['list'], $value);
+
+    // Try to use dotted notation with new separator
+    $value = $coll->get('list/single');
+
+    $I->assertEquals($this->data['list']['single'], $value);
+
+    $value = $coll->set('new_list/single', 'value')->get('new_list');
+
+    $I->assertEquals(['single' => 'value'], $value);
+
+    $value = $coll->remove('new_list/single')->get('new_list');
+
+    $I->assertEmpty($value);
+  }
+
+  /**
+   * @author cristianobaptista
    * @covers Ponticlaro\Bebop\Common\Collection::clear
    * 
    * @param  UnitTester $I Tester Module
