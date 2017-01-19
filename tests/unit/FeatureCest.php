@@ -29,6 +29,64 @@ class FeatureCest
 
   /**
    * @author cristianobaptista
+   * @covers Ponticlaro\Bebop\Common\Feature::__construct
+   * 
+   * @param UnitTester $I Tester Module
+   */
+  public function create(UnitTester $I)
+  {
+    // Mock is_string
+    $is_string_mock = Test::func('Ponticlaro\Bebop\Common', 'is_string', true);
+
+    // Mock Collection
+    $collection_mock = Test::double('Ponticlaro\Bebop\Common\Collection');
+
+    // Mock Feature
+    $feat_mock = Test::double('Ponticlaro\Bebop\Common\Feature');
+
+    // Create instance of the class to be tested
+    $feat = new Feature($this->fid, $this->fconfig);
+
+    // Check if is_string was called once
+    $is_string_mock->verifyInvokedOnce([
+      $this->fid
+    ]);
+
+    // Check if collection was created
+    $collection_mock->verifyInvokedOnce('__construct');
+
+    // Check if config elements were added
+    $feat_mock->verifyInvokedMultipleTimes('set', 2);
+
+    $I->assertEquals($this->fid, $feat->getId());
+    $I->assertEquals($this->fconfig, $feat->getAll());
+
+    // Reset test
+    Test::clean();
+
+    // Mock is_string
+    $is_string_mock = Test::func('Ponticlaro\Bebop\Common', 'is_string', false);
+
+    $I->expectException(Exception::class, function() {
+      new Feature(null);
+    });
+
+    $is_string_mock->verifyInvokedOnce();
+  }
+
+  /**
+   * @author cristianobaptista
+   * @covers Ponticlaro\Bebop\Common\Feature::__construct
+   * 
+   * @param UnitTester $I Tester Module
+   */
+  public function createWithException(UnitTester $I)
+  {
+
+  }
+
+  /**
+   * @author cristianobaptista
    * @covers Ponticlaro\Bebop\Common\Feature::enable
    * @covers Ponticlaro\Bebop\Common\Feature::isEnabled
    * 
