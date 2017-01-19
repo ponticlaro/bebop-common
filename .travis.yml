@@ -15,11 +15,6 @@ install:
 
 script: vendor/bin/codecept run unit
 
-# Code Climate script depends on setting CODECLIMATE_REPO_TOKEN env var on Travis CI admin
-after_script:
-  - vendor/bin/test-reporter --stdout > codeclimate.json
-  - "curl -X POST -d @codeclimate.json -H 'Content-Type: application/json' -H 'User-Agent: Code Climate (PHP Test Reporter v0.1.1)' https://codeclimate.com/test_reports"
-
 matrix:
   fast_finish: true
   allow_failures:
@@ -33,3 +28,7 @@ notifications:
     on_success: always
     on_failure: always
     on_start: never
+
+addons:
+  code_climate:
+    repo_token: 9257045a3d2c1ca68c14ed8352b093b91c1b61f6fee57e37a56541f0c238240f
