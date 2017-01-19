@@ -24,7 +24,8 @@
     "codeception/aspect-mock": "^2",
     "10up/wp_mock": "^0",
     "lucatume/wp-browser": "^1",
-    "apigen/apigen": "^4"
+    "apigen/apigen": "^4",
+    "codeclimate/php-test-reporter": "^0"
   },
   "suggest": {
     "michelf/php-smartypants": "Allows Markdown parsing"
@@ -35,7 +36,7 @@
     }
   },
   "scripts": {
-    "generate-docs": "apigen generate --config ./apigen.yaml"
+    "generate-docs": "apigen generate --config ./apigen.yml"
   },
   "support": {
     "email": "hello@ponticlaro.com"
