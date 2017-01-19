@@ -39,6 +39,8 @@
     "generate-docs": "apigen generate --config ./apigen.yml"
   },
   "support": {
-    "email": "hello@ponticlaro.com"
+    "email": "hello@ponticlaro.com",
+    "issues": "https://github.com/ponticlaro/bebop-common/issues",
+    "forum": "https://gitter.im/ponticlaro-bebop"
   }
 }
