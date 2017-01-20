@@ -51,6 +51,7 @@ class EnvManagerCest
   /**
    * @author cristianobaptista
    * @covers Ponticlaro\Bebop\Common\EnvManager::add
+   * @depends createAndExistsGet
    * 
    * @param UnitTester $I Tester Module
    */
@@ -124,6 +125,8 @@ class EnvManagerCest
   /**
    * @author cristianobaptista
    * @covers Ponticlaro\Bebop\Common\EnvManager::replace
+   * @depends createAndExistsGet
+   * @depends add
    * 
    * @param UnitTester $I Tester Module
    */
@@ -176,6 +179,9 @@ class EnvManagerCest
   /**
    * @author cristianobaptista
    * @covers Ponticlaro\Bebop\Common\EnvManager::remove
+   * @depends createAndExistsGet
+   * @depends add
+   * @depends replace
    * 
    * @param UnitTester $I Tester Module
    */
@@ -213,6 +219,10 @@ class EnvManagerCest
    * @covers Ponticlaro\Bebop\Common\EnvManager::is
    * @covers Ponticlaro\Bebop\Common\EnvManager::getCurrent
    * @covers Ponticlaro\Bebop\Common\EnvManager::getCurrentKey
+   * @depends createAndExistsGet
+   * @depends add
+   * @depends replace
+   * @depends remove
    * 
    * @param UnitTester $I Tester Module
    */
