@@ -39,12 +39,12 @@ class FeatureCest
     $is_string_mock = Test::func('Ponticlaro\Bebop\Common', 'is_string', true);
 
     // Mock Collection
-    $collection_mock = Test::double('Ponticlaro\Bebop\Common\Collection');
+    $coll_mock = Test::double('Ponticlaro\Bebop\Common\Collection');
 
     // Mock Feature
     $feat_mock = Test::double('Ponticlaro\Bebop\Common\Feature');
 
-    // Create instance of the class to be tested
+    // Create test instance
     $feat = new Feature($this->fid, $this->fconfig);
 
     // Check if is_string was called once
@@ -53,7 +53,7 @@ class FeatureCest
     ]);
 
     // Check if collection was created
-    $collection_mock->verifyInvokedOnce('__construct');
+    $coll_mock->verifyInvokedOnce('__construct');
 
     // Check if config elements were added
     $feat_mock->verifyInvokedMultipleTimes('set', 2);
@@ -67,6 +67,7 @@ class FeatureCest
     // Mock is_string
     $is_string_mock = Test::func('Ponticlaro\Bebop\Common', 'is_string', false);
 
+    // Check if exception is thrown with bad arguments
     $I->expectException(Exception::class, function() {
       new Feature(null);
     });
