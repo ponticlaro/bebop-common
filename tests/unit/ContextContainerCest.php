@@ -28,7 +28,6 @@ class ContextContainerCest
   {
     // Mock is_string; Force it to return true
     $is_string_mock            = Test::func('Ponticlaro\Bebop\Common', 'is_string', true);
-    $call_user_func_array_mock = Test::func('Ponticlaro\Bebop\Common', 'call_user_func_array', true);
 
     // Mock function to be used as subscriber
     $callable = Test::func('Ponticlaro\Bebop\Common', 'context_container_callable', null);
@@ -52,7 +51,7 @@ class ContextContainerCest
     $container->run();
 
     // Check if call_user_func_array was called once
-    $call_user_func_array_mock->verifyInvokedOnce([$callable, [$wp_query]]);
+    $callable->verifyInvokedOnce([$wp_query]);
 
     // Reset test
     Test::clean();
