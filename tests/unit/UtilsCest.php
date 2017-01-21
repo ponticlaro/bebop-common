@@ -127,7 +127,11 @@ class UtilsCest
       'fixPunctuation' => $content
     ]);
 
-    $parsed_content = Utils::parseMarkdown('# Heading', ["fix_punctuation" => true]);
+    $content_to_be_parsed = '
+      # Heading
+    ';
+
+    $parsed_content = Utils::parseMarkdown($content_to_be_parsed, ["fix_punctuation" => true]);
 
     // Verify ParsedownExtra::text() got invoked
     $parser->verifyMethodInvoked('text');
@@ -136,6 +140,7 @@ class UtilsCest
     $utils->verifyInvoked('fixPunctuation');
 
     $I->assertEquals($content, $parsed_content);
+    $I->assertNull(Utils::parseMarkdown([]));
   }
 
   /**
@@ -147,6 +152,7 @@ class UtilsCest
   public function fixPunctuation(UnitTester $I)
   {
     $I->assertEquals('Text', Utils::fixPunctuation('Text'));
+    $I->assertNull(Utils::fixPunctuation([]));
   } 
 
   /**
@@ -227,6 +233,7 @@ class UtilsCest
 
     $I->assertEquals($result_absolute_path, Utils::getPathUrl($src_path));
     $I->assertEquals($result_relative_path, Utils::getPathUrl($src_path, true));
+    $I->assertNull(Utils::getPathUrl([]));
   } 
 
   /**
