@@ -149,10 +149,28 @@ class UtilsCest
    * 
    * @param UnitTester $I Tester Module
    */
-  public function fixPunctuation(UnitTester $I)
+  public function fixPunctuationWithoutSmartypants(UnitTester $I)
   {
-    $I->assertEquals('Text', Utils::fixPunctuation('Text'));
+    // Testing invalid input
     $I->assertNull(Utils::fixPunctuation([]));
+
+    // Testing valid input without Smartypants
+    $I->assertEquals('Text', Utils::fixPunctuation('Text'));
+  } 
+
+  /**
+   * @author cristianobaptista
+   * @covers Ponticlaro\Bebop\Common\Utils::fixPunctuation
+   * 
+   * @param UnitTester $I Tester Module
+   */
+  public function fixPunctuationWithSmartypants(UnitTester $I)
+  {
+    // Mock SmartyPants
+    $smartypants = \Mockery::mock('alias:Michelf\SmartyPants');
+    $smartypants->shouldReceive('defaultTransform')->andReturn('Parsed Text');
+
+    $I->assertEquals('Parsed Text', Utils::fixPunctuation('Text'));
   } 
 
   /**
