@@ -27,7 +27,7 @@ class ContextContainerCest
   public function create(UnitTester $I)
   {
     // Mock is_string; Force it to return true
-    $is_string_mock            = Test::func('Ponticlaro\Bebop\Common', 'is_string', true);
+    $is_string_mock = Test::func('Ponticlaro\Bebop\Common', 'is_string', true);
 
     // Mock function to be used as subscriber
     $callable = Test::func('Ponticlaro\Bebop\Common', 'context_container_callable', null);

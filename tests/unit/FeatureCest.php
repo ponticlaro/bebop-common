@@ -18,13 +18,11 @@ class FeatureCest
   public function _before(UnitTester $I)
   {
     Test::clean();
-    \WP_Mock::setUp();
   }
 
   public function _after(UnitTester $I)
   {
     Test::clean();
-    \WP_Mock::tearDown();
   }
 
   /**
