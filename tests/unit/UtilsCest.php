@@ -244,6 +244,24 @@ class UtilsCest
    */
   public function getControlNamesFromCallable(UnitTester $I)
   {
+    $expected_fields = [
+      'text',
+      'hidden',
+      'checkbox',
+      'multiple_checkboxes',
+      'radio',
+      'multiple_radios',
+      'file',
+      'select',
+      'select_multiple',
+      'textarea',
+    ];
+
+    $fields = Utils::getControlNamesFromCallable('utils_sample_control_elements_html');
     
+    sort($expected_fields);
+    sort($fields);
+
+    $I->assertEquals($expected_fields, $fields);
   } 
 }
