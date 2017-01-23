@@ -8,22 +8,11 @@ engines:
     enabled: true
   phpmd:
     enabled: true
-    Naming/ShortMethod:
-      minimum: 2
-    Naming/ShortVariable:
-      minimum: 2
-    Controversial/CamelCaseParameterName:
-      enabled: false
-    Controversial/CamelCaseVariableName:
-      enabled: false
+    config:
+      file_extensions: "php"
+      rulesets: "cleancode,codesize,controversial,design,naming,unusedcode,.phpmd-rules.xml"
 ratings:
   paths:
-  - "**.inc"
-  - "**.js"
-  - "**.jsx"
-  - "**.module"
   - "**.php"
-  - "**.py"
-  - "**.rb"
 exclude_paths:
 - tests/
