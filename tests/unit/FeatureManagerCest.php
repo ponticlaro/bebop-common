@@ -40,6 +40,12 @@ class FeatureManagerCest
     $I->assertNull($m->get('test_2'));
     $I->assertTrue($m->exists('test'));
     $I->assertFalse($m->exists('test_2'));
+
+    // Checking if ::exists return null on bad arguments
+    $I->assertNull($m->exists(null));
+    $I->assertNull($m->exists(1));
+    $I->assertNull($m->exists([]));
+    $I->assertNull($m->exists(new \stdClass));
   }
 
   /**

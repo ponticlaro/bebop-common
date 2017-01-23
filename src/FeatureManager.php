@@ -2,17 +2,16 @@
 
 namespace Ponticlaro\Bebop\Common;
 
-use Ponticlaro\Bebop\Common\Collection;
 use Ponticlaro\Bebop\Common\Feature;
 
 class FeatureManager extends \Ponticlaro\Bebop\Common\Patterns\SingletonAbstract {
 
   /**
-   * Features collection
+   * Features list
    * 
-   * @var Ponticlaro\Bebop\Common\Collection object
+   * @var array
    */
-  protected $features;
+  protected $features = [];
 
   /**
    * Instantiates feature manager
@@ -20,12 +19,6 @@ class FeatureManager extends \Ponticlaro\Bebop\Common\Patterns\SingletonAbstract
    */
   protected function __construct()
   {
-    $this->features = new Collection;
-
-    ///////////////////////
-    // Built-in features //
-    ///////////////////////
-
     // MVC / Model / Loadables Auto Context
     $loadables_auto_context = (new Feature('mvc/model/loadables_auto_context'))->enable();
     $this->add($loadables_auto_context);
@@ -42,7 +35,7 @@ class FeatureManager extends \Ponticlaro\Bebop\Common\Patterns\SingletonAbstract
    */
   public function add(Feature $feature)
   {
-    $this->features->set($feature->getId(), $feature);
+    $this->features[$feature->getId()] = $feature;
 
     return $this;
   }
@@ -55,7 +48,10 @@ class FeatureManager extends \Ponticlaro\Bebop\Common\Patterns\SingletonAbstract
    */
   public function get($id)
   {
-    return $this->features->get($id);
+    if (!$this->exists($id))
+      return null;
+
+    return $this->features[$id];
   } 
 
   /**
@@ -65,7 +61,7 @@ class FeatureManager extends \Ponticlaro\Bebop\Common\Patterns\SingletonAbstract
    */
   public function getAll()
   {
-    return $this->features->getAll();
+    return $this->features;
   } 
 
   /**
@@ -76,7 +72,10 @@ class FeatureManager extends \Ponticlaro\Bebop\Common\Patterns\SingletonAbstract
    */
   public function exists($id)
   {
-    return $this->features->hasKey($id);
+    if (!is_string($id))
+      return null;
+
+    return isset($this->features[$id]);
   }
 
   /**
@@ -85,7 +84,7 @@ class FeatureManager extends \Ponticlaro\Bebop\Common\Patterns\SingletonAbstract
    */
   public function clear()
   {
-    $this->features->clear();
+    $this->features = [];
 
     return $this;
   }

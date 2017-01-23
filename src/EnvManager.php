@@ -2,8 +2,6 @@
 
 namespace Ponticlaro\Bebop\Common;
 
-use Ponticlaro\Bebop\Common\Collection;
-
 class EnvManager extends \Ponticlaro\Bebop\Common\Patterns\SingletonAbstract {
 
   /**
