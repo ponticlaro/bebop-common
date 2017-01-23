@@ -8,6 +8,14 @@ engines:
     enabled: true
   phpmd:
     enabled: true
+    Naming/ShortMethod:
+      minimum: 2
+    Naming/ShortVariable:
+      minimum: 2
+    Controversial/CamelCaseParameterName:
+      enabled: false
+    Controversial/CamelCaseVariableName:
+      enabled: false
 ratings:
   paths:
   - "**.inc"
