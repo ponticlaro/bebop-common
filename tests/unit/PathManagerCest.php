@@ -54,8 +54,9 @@ class PathManagerCest
   }
 
   /**
-   * @author cristianobaptista
-   * @covers Ponticlaro\Bebop\Common\PathManager::set
+   * @author  cristianobaptista
+   * @covers  Ponticlaro\Bebop\Common\PathManager::set
+   * @depends checkDefaultUrls
    * 
    * @param UnitTester $I Tester Module
    */
@@ -67,21 +68,60 @@ class PathManagerCest
   }
 
   /**
+   * @author  cristianobaptista
+   * @covers  Ponticlaro\Bebop\Common\PathManager::has
+   * @depends set
+   * @depends set
+   * 
+   * @param UnitTester $I Tester Module
+   */
+  public function has(UnitTester $I)
+  {
+    $m = PathManager::getInstance();
+
+    $I->assertTrue($m->has('root'));
+    $I->assertTrue($m->has('admin'));
+    $I->assertTrue($m->has('plugins'));
+    $I->assertTrue($m->has('content'));
+    $I->assertTrue($m->has('uploads'));
+    $I->assertTrue($m->has('themes'));
+    $I->assertTrue($m->has('theme'));
+
+    // Test bad arguments
+    $I->assertFalse($m->has(null));
+    $I->assertFalse($m->has(1));
+    $I->assertFalse($m->has([]));
+    $I->assertFalse($m->has(new \stdClass));
+  }
+
+  /**
    * @author cristianobaptista
    * @covers Ponticlaro\Bebop\Common\PathManager::get
+   * @depends has
    * 
    * @param UnitTester $I Tester Module
    */
   public function get(UnitTester $I)
   {
+    $m = PathManager::getInstance();
+
     // Testing value
-    $path = PathManager::getInstance()->get('theme');
+    $path = $m->get('theme');
 
     $I->assertEquals($this->paths['theme'], $path);
 
     // Testing value + relative path
-    $path = PathManager::getInstance()->get('theme', '/assets/main.css');
+    $path = $m->get('theme', '/relative/path');
 
-    $I->assertEquals($this->paths['theme'] .'assets/main.css', $path);
+    $I->assertEquals($this->paths['theme'] .'relative/path', $path);
+
+    // Testing unexisting key
+    $I->assertNull($m->get('not_set_path', '/relative/path'));
+
+    // Testing bad arguments
+    $I->assertNull($m->get(null, '/relative/path'));
+    $I->assertNull($m->get(1, '/relative/path'));
+    $I->assertNull($m->get([], '/relative/path'));
+    $I->assertNull($m->get(new \stdClass, '/relative/path'));
   }
 }
