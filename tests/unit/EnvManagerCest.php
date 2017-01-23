@@ -57,9 +57,6 @@ class EnvManagerCest
    */
   public function add(UnitTester $I)
   {
-    // Mock Collection
-    $coll_mock = Test::double('Ponticlaro\Bebop\Common\Collection');
-
     // Mock Env
     $env_mock = Test::double('Ponticlaro\Bebop\Common\Env', [
       '__construct' => null // Making sure new Env do not create a Collection
@@ -71,9 +68,6 @@ class EnvManagerCest
     // Testing ::add
     $m->add('testing');
 
-    // Check if collection::set was invoked
-    $coll_mock->verifyInvokedOnce('set');
-
     // Check if an env was created
     $env_mock->verifyInvokedOnce('__construct');
 
@@ -81,9 +75,6 @@ class EnvManagerCest
     $I->assertTrue($m->get('testing') instanceof Env);
 
     Test::clean();
-
-    // Mock Collection
-    $coll_mock = Test::double('Ponticlaro\Bebop\Common\Collection');
 
     // Mock Env
     $env_mock = Test::double('Ponticlaro\Bebop\Common\Env', [
@@ -94,18 +85,12 @@ class EnvManagerCest
     $existing_env = $m->get('production');
     $added_env    = $m->add('production')->get('production');
 
-    // Check if collection::set was not invoked
-    $coll_mock->verifyNeverInvoked('set');
-
     // Check if an env was not created
     $env_mock->verifyNeverInvoked('__construct');
 
     $I->assertSame($existing_env, $added_env);
 
     Test::clean();
-
-    // Mock Collection
-    $coll_mock = Test::double('Ponticlaro\Bebop\Common\Collection');
 
     // Mock Env
     $env_mock = Test::double('Ponticlaro\Bebop\Common\Env', [
@@ -114,9 +99,6 @@ class EnvManagerCest
 
     // Testing ::add with bad arguments
     $m->add(null);
-
-    // Check if collection::set was not invoked
-    $coll_mock->verifyNeverInvoked('set');
 
     // Check if an env was not created
     $env_mock->verifyNeverInvoked('__construct');
@@ -132,9 +114,6 @@ class EnvManagerCest
    */
   public function replace(UnitTester $I)
   {
-    // Mock Collection
-    $coll_mock = Test::double('Ponticlaro\Bebop\Common\Collection');
-
     // Mock Env
     $env_mock = Test::double('Ponticlaro\Bebop\Common\Env', [
       '__construct' => null // Making sure new Env do not create a Collection
@@ -147,9 +126,6 @@ class EnvManagerCest
     $existing_env    = $m->get('testing');
     $replacement_env = $m->replace('testing')->get('testing');
 
-    // Check if collection::set was invoked
-    $coll_mock->verifyInvokedOnce('set');
-
     // Check if an env was created
     $env_mock->verifyInvokedOnce('__construct');
 
@@ -158,9 +134,6 @@ class EnvManagerCest
 
     Test::clean();
 
-    // Mock Collection
-    $coll_mock = Test::double('Ponticlaro\Bebop\Common\Collection');
-
     // Mock Env
     $env_mock = Test::double('Ponticlaro\Bebop\Common\Env', [
       '__construct' => null // Making sure new Env do not create a Collection
@@ -168,9 +141,6 @@ class EnvManagerCest
 
     // Testing ::replace with bad arguments
     $m->replace(null);
-
-    // Check if collection::set was not invoked
-    $coll_mock->verifyNeverInvoked('set');
 
     // Check if an env was not created
     $env_mock->verifyNeverInvoked('__construct');
@@ -187,31 +157,19 @@ class EnvManagerCest
    */
   public function remove(UnitTester $I)
   {
-    // Mock Collection
-    $coll_mock = Test::double('Ponticlaro\Bebop\Common\Collection');
-
     // Create test instance
     $m = EnvManager::getInstance();
 
     // Testing ::remove
     $m->remove('testing');
 
-    // Check if collection::remove was invoked
-    $coll_mock->verifyInvokedOnce('remove');
-
     // Check if the target env was replaced
     $I->assertFalse($m->exists('testing'));
 
     Test::clean();
 
-    // Mock Collection
-    $coll_mock = Test::double('Ponticlaro\Bebop\Common\Collection');
-
     // Testing ::remove with bad arguments
     $m->remove(null);
-
-    // Check if collection::set was not invoked
-    $coll_mock->verifyNeverInvoked('remove');
   }
 
   /**
@@ -228,18 +186,22 @@ class EnvManagerCest
    */
   public function checkCurrentEnv(UnitTester $I)
   {
-    // Mock Collection
-    $coll_mock = Test::double('Ponticlaro\Bebop\Common\Collection');
-
     // Create test instance
     $m = EnvManager::getInstance();
 
-    // Testing ::is, ::getCurrent and ::getCurrentKey without APP_ENV in place
+    // Testing ::is, ::getCurrent and ::getCurrentKey without APP_ENV
     $I->assertTrue($m->is('development'));
     $I->assertSame($m->get('development'), $m->getCurrent());
     $I->assertEquals('development', $m->getCurrentKey());
 
-    // Testing ::is, ::getCurrent and ::getCurrentKey with APP_ENV in place
+    // Testing ::getCurrent when 'development' env has been removed and without APP_ENV
+    $m->remove('development');
+
+    $I->assertTrue($m->is('development'));
+    $I->assertSame($m->get('development'), $m->getCurrent());
+    $I->assertEquals('development', $m->getCurrentKey());
+
+    // Testing ::is, ::getCurrent and ::getCurrentKey with APP_ENV
     putenv('APP_ENV=staging');
 
     $I->assertTrue($m->is('staging'));
