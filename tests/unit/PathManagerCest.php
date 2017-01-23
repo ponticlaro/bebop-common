@@ -71,7 +71,6 @@ class PathManagerCest
    * @author  cristianobaptista
    * @covers  Ponticlaro\Bebop\Common\PathManager::has
    * @depends set
-   * @depends set
    * 
    * @param UnitTester $I Tester Module
    */

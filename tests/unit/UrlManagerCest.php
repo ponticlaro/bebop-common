@@ -83,6 +83,32 @@ class UrlManagerCest
   }
 
   /**
+   * @author  cristianobaptista
+   * @covers  Ponticlaro\Bebop\Common\UrlManager::has
+   * @depends set
+   * 
+   * @param UnitTester $I Tester Module
+   */
+  public function has(UnitTester $I)
+  {
+    $m = UrlManager::getInstance();
+
+    $I->assertTrue($m->has('home'));
+    $I->assertTrue($m->has('admin'));
+    $I->assertTrue($m->has('plugins'));
+    $I->assertTrue($m->has('content'));
+    $I->assertTrue($m->has('uploads'));
+    $I->assertTrue($m->has('themes'));
+    $I->assertTrue($m->has('theme'));
+
+    // Test bad arguments
+    $I->assertFalse($m->has(null));
+    $I->assertFalse($m->has(1));
+    $I->assertFalse($m->has([]));
+    $I->assertFalse($m->has(new \stdClass));
+  }
+
+  /**
    * @author cristianobaptista
    * @covers Ponticlaro\Bebop\Common\UrlManager::get
    * 
@@ -90,14 +116,25 @@ class UrlManagerCest
    */
   public function get(UnitTester $I)
   {
+    $m = UrlManager::getInstance();
+    
     // Testing value
-    $url = UrlManager::getInstance()->get('theme');
+    $url = $m->get('theme');
 
     $I->assertEquals($this->urls['theme'], $url);
 
     // Testing value + relative url
-    $url = UrlManager::getInstance()->get('theme', '/assets/main.css');
+    $url = $m->get('theme', '/relative/url');
 
-    $I->assertEquals($this->urls['theme'] .'assets/main.css', $url);
+    $I->assertEquals($this->urls['theme'] .'relative/url', $url);
+
+    // Testing unexisting key
+    $I->assertNull($m->get('not_set_url', '/relative/url'));
+
+    // Testing bad arguments
+    $I->assertNull($m->get(null, '/relative/url'));
+    $I->assertNull($m->get(1, '/relative/url'));
+    $I->assertNull($m->get([], '/relative/url'));
+    $I->assertNull($m->get(new \stdClass, '/relative/url'));
   }
 }

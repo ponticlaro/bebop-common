@@ -2,16 +2,14 @@
 
 namespace Ponticlaro\Bebop\Common;
 
-use Ponticlaro\Bebop\Common\Collection;
-
 class UrlManager extends \Ponticlaro\Bebop\Common\Patterns\SingletonAbstract {
 
   /**
    * List of environments
    * 
-   * @var Ponticlaro\Bebop\Common\Collection;
+   * @var array;
    */
-  protected $__urls;
+  protected $urls = [];
 
   /**
    * Instantiates Env Manager object
@@ -23,15 +21,13 @@ class UrlManager extends \Ponticlaro\Bebop\Common\Patterns\SingletonAbstract {
     $template_url = get_bloginfo('template_url');
 
     // Instantiate paths collection object
-    $this->__urls = new Collection(array(
-      'home'    => home_url(),
-      'admin'   => admin_url(),
-      'plugins' => plugins_url(),
-      'content' => content_url(),
-      'uploads' => $uploads_data['baseurl'],
-      'themes'  => str_replace('/'. basename($template_url), '', $template_url),
-      'theme'   => $template_url
-    ));
+    $this->urls['home']    = home_url();
+    $this->urls['admin']   = admin_url();
+    $this->urls['plugins'] = plugins_url();
+    $this->urls['content'] = content_url();
+    $this->urls['uploads'] = $uploads_data['baseurl'];
+    $this->urls['themes']  = str_replace('/'. basename($template_url), '', $template_url);
+    $this->urls['theme']   = $template_url;
   }
 
   /**
@@ -42,9 +38,22 @@ class UrlManager extends \Ponticlaro\Bebop\Common\Patterns\SingletonAbstract {
    */
   public function set($key, $url)
   {
-    $this->__urls->set($key, rtrim($url, '/'));
+    $this->urls[$key] = rtrim($url, '/');
 
     return $this;
+  }
+
+  /**
+   * Checks if the target path exists
+   * 
+   * @param string $key Key of the path to check
+   */
+  public function has($key)
+  {
+    if (!is_string($key)) 
+      return false;
+
+    return isset($this->urls[$key]);
   }
 
   /**
@@ -57,8 +66,14 @@ class UrlManager extends \Ponticlaro\Bebop\Common\Patterns\SingletonAbstract {
    */
   public function get($key, $relative_url = null)
   {   
-    // Get URL without trailing slash
-    $url = $this->__urls->get($key);
+    if (!is_string($key))
+      return null;
+
+    if (!$this->has($key))
+      return null;
+
+    // Get url without trailing slash
+    $url = $this->urls[$key];
 
     // Concatenate relative URL
     if ($relative_url)
@@ -74,21 +89,6 @@ class UrlManager extends \Ponticlaro\Bebop\Common\Patterns\SingletonAbstract {
    */
   public function getAll()
   {
-    return $this->__urls->getAll();
-  } 
-
-  /**
-   * Sends all undefined method calls to the paths collection object
-   * 
-   * @param  string $name Method name
-   * @param  array  $args Method arguments
-   * @return mixed        Method returned value
-   */
-  public function __call($name, $args)
-  {
-    if (!method_exists($this->__urls, $name))
-      throw new \Exception("UrlManager->$name method do not exist", 1);
-
-    return call_user_func_array(array($this->__urls, $name), $args);
+    return $this->urls;
   }
 }
