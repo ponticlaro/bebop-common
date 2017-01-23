@@ -36,7 +36,7 @@
     }
   },
   "scripts": {
-    "generate-docs": "apigen generate --config ./apigen.yml"
+    "generate-docs": "apigen generate --config ./.apigen.yml"
   },
   "support": {
     "email": "hello@ponticlaro.com",
