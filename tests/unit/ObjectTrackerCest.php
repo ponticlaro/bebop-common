@@ -35,7 +35,8 @@ class ObjectTrackerCest
     $src_trackable = $trackable_mock->make();
 
     // Track and get mocked TrackableObjectAbstract instance
-    $trackable = ObjectTracker::getInstance()->track($src_trackable)->get('test_type', 'test_id');
+    $tracker   = ObjectTracker::getInstance();
+    $trackable = $tracker->track($src_trackable)->get('test_type', 'test_id');
 
     // Verify TrackableObjectAbstract methods are called
     $trackable_mock->verifyInvoked('getObjectID');
@@ -43,5 +44,30 @@ class ObjectTrackerCest
 
     // Verify the returned object matches the tracker one
     $I->assertEquals($src_trackable, $trackable);
+
+    // Check if ::get returns null if object id doesn't exist
+    $tracker->get('test_type', 'test_id_2');
+
+    // Check if ::get returns null if object type doesn't exist
+    $tracker->get('test_type_2', 'test_id_2');
+
+    // Check if ::get throws exception with bad arguments
+    $test_bad_args = [
+      [null, null],
+      ['test_type', null],
+      [1, 1],
+      ['test_type', 1],
+      [[], []],
+      ['test_type', []],
+      [new \stdClass, new \stdClass],
+      ['test_type', new \stdClass],
+    ];
+
+    foreach ($test_bad_args as $arg_set) {
+      
+      $I->expectException(Exception::class, function() use($tracker, $arg_set) {
+        $tracker->get($arg_set[0], $arg_set[1]);
+      });
+    }
   }
 }

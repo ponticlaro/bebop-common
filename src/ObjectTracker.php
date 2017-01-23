@@ -2,7 +2,6 @@
 
 namespace Ponticlaro\Bebop\Common;
 
-use Ponticlaro\Bebop\Common\Collection;
 use Ponticlaro\Bebop\Common\Patterns\TrackableObjectAbstract;
 
 class ObjectTracker extends \Ponticlaro\Bebop\Common\Patterns\SingletonAbstract {
@@ -11,7 +10,7 @@ class ObjectTracker extends \Ponticlaro\Bebop\Common\Patterns\SingletonAbstract 
 	 * List with all the tracked object types lists
 	 * @var array
 	 */
-	protected $lists = array();
+	protected $lists = [];
 
 	/**
 	 * Tracks Bebop objects
@@ -22,16 +21,16 @@ class ObjectTracker extends \Ponticlaro\Bebop\Common\Patterns\SingletonAbstract 
 	public function track(TrackableObjectAbstract $object)
 	{	
 		// Get object details
-		$id   = $object->getObjectID();
-		$type = $object->getObjectType();
+		$id   = (string) $object->getObjectID();
+		$type = (string) $object->getObjectType();
 
 		// Add object type collection if not already present
 		if ($type && !isset($this->lists[$type])) 
-			$this->lists[$type] = (new Collection)->disableDottedNotation();
+			$this->lists[$type] = [];
 
 		// Add object to its type collection
 		if($type && $id) 
-			$this->lists[$type]->set($id, $object);
+			$this->lists[$type][$id] = $object;
 
 		return $this;
 	}
@@ -45,6 +44,15 @@ class ObjectTracker extends \Ponticlaro\Bebop\Common\Patterns\SingletonAbstract 
 	 */
 	public function get($type, $id)
 	{
-		return isset($this->lists[$type]) ? $this->lists[$type]->get($id) : null;
+		if (!is_string($type) || !is_string($id))
+			throw new \Exception("\$type and \$id arguments must be both strings");
+
+		if (!isset($this->lists[$type]))
+			return null;
+
+		if (!isset($this->lists[$type][$id]))
+			return null;
+
+		return $this->lists[$type][$id];
 	}
 }
