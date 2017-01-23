@@ -39,9 +39,6 @@ class FeatureCest
     // Mock Collection
     $coll_mock = Test::double('Ponticlaro\Bebop\Common\Collection');
 
-    // Mock Feature
-    $feat_mock = Test::double('Ponticlaro\Bebop\Common\Feature');
-
     // Create test instance
     $feat = new Feature($this->fid, $this->fconfig);
 
@@ -52,9 +49,6 @@ class FeatureCest
 
     // Check if collection was created
     $coll_mock->verifyInvokedOnce('__construct');
-
-    // Check if config elements were added
-    $feat_mock->verifyInvokedMultipleTimes('set', 2);
 
     $I->assertEquals($this->fid, $feat->getId());
     $I->assertEquals($this->fconfig, $feat->getAll());

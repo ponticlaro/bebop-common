@@ -39,13 +39,7 @@ class Feature {
       throw new \Exception("Feature id must be a string");
 
     $this->id     = $id;
-    $this->config = new Collection();
-
-    if ($config) {
-      foreach ($config as $key => $value) {
-        $this->set($key, $value);
-      }
-    }
+    $this->config = new Collection($config);
   }
 
   /**
