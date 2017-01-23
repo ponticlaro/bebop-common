@@ -2,7 +2,6 @@
 
 namespace Ponticlaro\Bebop\Common;
 
-use Ponticlaro\Bebop\Common\Collection;
 use Ponticlaro\Bebop\Common\ContextContainer;
 
 /**
@@ -33,9 +32,9 @@ class ContextManager extends \Ponticlaro\Bebop\Common\Patterns\SingletonAbstract
   /**
    * List of Context Containers
    *  
-   * @var Ponticlaro\Bebop\Common\Collection
+   * @var array
    */
-  protected $contexts;
+  protected $contexts = [];
 
   /**
    * Instantiates Context Manager
@@ -43,9 +42,6 @@ class ContextManager extends \Ponticlaro\Bebop\Common\Patterns\SingletonAbstract
    */
   protected function __construct()
   {
-    // Instantiate contexts collection
-    $this->contexts = (new Collection())->disableDottedNotation();
-
     // Add default context rules
     $this->add('default', function($q) {
 
@@ -103,7 +99,7 @@ class ContextManager extends \Ponticlaro\Bebop\Common\Patterns\SingletonAbstract
    */
   public function defineCurrent()
   {
-    foreach ($this->contexts->getAll() as $context_container) {
+    foreach ($this->contexts as $context_container) {
         
       $key = $context_container->run();
 
@@ -218,7 +214,7 @@ class ContextManager extends \Ponticlaro\Bebop\Common\Patterns\SingletonAbstract
   public function prepend($id, callable $fn)
   {
     if (is_string($id))
-      $this->contexts->unshift(new ContextContainer($id, $fn));
+      array_unshift($this->contexts, new ContextContainer($id, $fn));
 
     return $this;
   }
@@ -233,7 +229,7 @@ class ContextManager extends \Ponticlaro\Bebop\Common\Patterns\SingletonAbstract
   public function append($id, callable $fn)
   {   
     if (is_string($id))
-      $this->contexts->push(new ContextContainer($id, $fn));
+      $this->contexts[] = new ContextContainer($id, $fn);
 
     return $this;
   }
@@ -248,7 +244,7 @@ class ContextManager extends \Ponticlaro\Bebop\Common\Patterns\SingletonAbstract
   {
     $target_context = null;
 
-    foreach ($this->contexts->getAll() as $context) {
+    foreach ($this->contexts as $context) {
         
       if ($context->getId() == $id) {
           

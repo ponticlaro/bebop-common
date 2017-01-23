@@ -34,9 +34,6 @@ class ContextManagerCest
     $wp_query = Mockery::mock('\WP_Query');
     $wp_query->shouldReceive('is_home')->andReturn(true);
 
-    // Mock Collection
-    $coll_mock = Test::double('Ponticlaro\Bebop\Common\Collection');
-
     // Mock ContextContainer
     $container_mock = Test::double('Ponticlaro\Bebop\Common\ContextContainer');
 
@@ -49,18 +46,11 @@ class ContextManagerCest
     // Check if ::__construct is called once
     $m_mock->verifyInvokedOnce('__construct');
 
-    // Check if Collection is created and configured
-    $coll_mock->verifyInvokedOnce('__construct');
-    $coll_mock->verifyInvokedOnce('disableDottedNotation');
-
     // Check if ::add is called once
     $m_mock->verifyInvokedOnce('add');
 
     // Check if ::defineCurrent is added to the wp hook
     // WP_Mock::expectActionAdded('wp', array($m, 'defineCurrent'), null, null);
-
-    // Check if Collection::getAll is called
-    $coll_mock->verifyInvokedOnce('getAll');
 
     // Check if ContextContainer::run is called once
     $container_mock->verifyInvokedOnce('run');
@@ -583,14 +573,16 @@ class ContextManagerCest
   public function add(UnitTester $I)
   {
     // Mocks
-    $coll_mock      = Test::double('Ponticlaro\Bebop\Common\Collection');
-    $container_mock = Test::double('Ponticlaro\Bebop\Common\ContextContainer');
-    $m_mock         = Test::double('Ponticlaro\Bebop\Common\ContextManager');
+    $container_mock     = Test::double('Ponticlaro\Bebop\Common\ContextContainer');
+    $m_mock             = Test::double('Ponticlaro\Bebop\Common\ContextManager');
+    //$array_unshift_mock = Test::func('Ponticlaro\Bebop\Common', 'array_unshift', true);
 
     // Get test instance
     $m = ContextManager::getInstance();
 
     $m->add('prepended_container', 'context_container_callable');
+
+    //$array_unshift_mock->verifyInvokedOnce();
 
     $m_mock->verifyInvokedOnce('prepend', [
       'prepended_container', 
@@ -601,8 +593,6 @@ class ContextManagerCest
       'prepended_container', 
       'context_container_callable'
     ]);
-
-    $coll_mock->verifyInvokedOnce('unshift');
 
     $I->assertTrue($m->get('prepended_container') instanceof ContextContainer);
   }
@@ -617,8 +607,7 @@ class ContextManagerCest
    */
   public function append(UnitTester $I)
   {   
-    // Mocks
-    $coll_mock      = Test::double('Ponticlaro\Bebop\Common\Collection');
+    // Mock ContextContainer
     $container_mock = Test::double('Ponticlaro\Bebop\Common\ContextContainer');
 
     // Get test instance
@@ -630,8 +619,6 @@ class ContextManagerCest
       'appended_container', 
       'context_container_callable'
     ]);
-
-    $coll_mock->verifyInvokedOnce('push');
 
     $I->assertTrue($m->get('appended_container') instanceof ContextContainer);
   }
