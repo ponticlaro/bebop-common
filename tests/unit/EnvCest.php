@@ -27,17 +27,11 @@ class EnvCest
     // Mock is_string; Force it to return true
     $is_string_mock = Test::func('Ponticlaro\Bebop\Common', 'is_string', true);
 
-    // Mock Collection
-    $coll_mock = Test::double('Ponticlaro\Bebop\Common\Collection');
-
     // Create test instance
     $env = new Env('testing');
 
    // Check if is_string was called once
     $is_string_mock->verifyInvokedOnce(['testing']);
-
-    // Check if collection was created
-    $coll_mock->verifyInvokedOnce('__construct');
 
     // Check if ::getKey works
     $I->assertEquals('testing', $env->getKey());
@@ -73,9 +67,6 @@ class EnvCest
       'http://wp3.local'
     ];
 
-    // Mock Collection
-    $coll_mock = Test::double('Ponticlaro\Bebop\Common\Collection');
-
     // Create test instance
     $env = new Env('testing');
 
@@ -93,6 +84,12 @@ class EnvCest
     $I->assertTrue($env->hasHost($src_hosts[1]));
     $I->assertTrue($env->hasHost($src_hosts[2]));
     $I->assertEquals($src_hosts, $env->getHosts());
+
+    // Check if bad argument returns false
+    $I->assertFalse($env->hasHost(null));
+    $I->assertFalse($env->hasHost(1));
+    $I->assertFalse($env->hasHost([]));
+    $I->assertFalse($env->hasHost(new \stdClass));
   }
 
   /**

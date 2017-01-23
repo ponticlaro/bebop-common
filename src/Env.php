@@ -16,9 +16,9 @@ class Env {
   /**
    * List of environments
    * 
-   * @var Ponticlaro\Bebop\Common\Collection;
+   * @var array;
    */
-  private $__hosts;
+  private $__hosts = [];
 
   /**
    * Instantiates Env object
@@ -31,9 +31,6 @@ class Env {
     
     // Store key
     $this->__key = $key;
-
-    // Instantiate hosts collection
-    $this->__hosts = (new Collection())->disableDottedNotation();
   }
 
   /**
@@ -54,7 +51,7 @@ class Env {
   public function addHost($host)
   {
     if (is_string($host)) 
-      $this->__hosts->push($host);
+      $this->__hosts[] = $host;
 
     return $this;
   }
@@ -69,7 +66,7 @@ class Env {
     foreach ($hosts as $host) {
   
       if (is_string($host)) 
-        $this->__hosts->push($host);
+        $this->__hosts[] = $host;
     }
 
     return $this;
@@ -82,7 +79,7 @@ class Env {
    */
   public function getHosts()
   {
-    return $this->__hosts->getAll();
+    return $this->__hosts;
   }
 
   /**
@@ -93,7 +90,12 @@ class Env {
    */
   public function hasHost($host)
   {
-    return is_string($host) ? $this->__hosts->hasValue($host) : false;
+    if (!is_string($host))
+      return false;
+
+    $key = array_search($host, $this->__hosts);
+
+    return $key === false ? false : true;
   }
 
   /**
@@ -104,9 +106,9 @@ class Env {
   public function isCurrent()
   {   
     // Use Hosts to determine current environment
-    if ($this->__hosts->count() >= 1) {
+    if ($this->__hosts) {
         
-      return $this->__hosts->hasValue($_SERVER['SERVER_NAME']);
+      return $this->hasHost($_SERVER['SERVER_NAME']);
     }
 
     // Use APP_ENV to determine current environment
