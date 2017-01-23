@@ -141,8 +141,6 @@ class EnvManager extends \Ponticlaro\Bebop\Common\Patterns\SingletonAbstract {
    */
   public function getCurrentKey()
   {
-    $current_env = $this->getCurrent();
-
-    return $current_env instanceof \Ponticlaro\Bebop\Common\Env ? $current_env->getKey() : 'development';
+    return $this->getCurrent()->getKey();
   }
 }
