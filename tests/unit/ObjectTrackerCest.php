@@ -1,19 +1,16 @@
 <?php
 
-use AspectMock\Test;
 use Ponticlaro\Bebop\Common\ObjectTracker;
-use Ponticlaro\Bebop\Common\Patterns\TrackableObjectAbstract;
 
 class ObjectTrackerCest
 {
   public function _before(UnitTester $I)
   {
-    Test::clean();
   }
 
   public function _after(UnitTester $I)
   {
-    Test::clean();
+    \Mockery::close();
   }
 
   /**
@@ -25,25 +22,17 @@ class ObjectTrackerCest
    */
   public function trackGet(UnitTester $I)
   {
-    // Mock TrackableObjectAbstract
-    $trackable_mock = Test::double('Ponticlaro\Bebop\Common\Patterns\TrackableObjectAbstract', [
-      'getObjectID'   => 'test_id',
-      'getObjectType' => 'test_type'
-    ]);
-
-    // Get mocked TrackableObjectAbstract instance
-    $src_trackable = $trackable_mock->make();
+    // Mock TrackableObjectInterface
+    $trackable_mock = \Mockery::mock('\Ponticlaro\Bebop\Common\Patterns\TrackableObjectInterface');
+    $trackable_mock->shouldReceive('getObjectID')->once()->andReturn('test_id');
+    $trackable_mock->shouldReceive('getObjectType')->once()->andReturn('test_type');
 
     // Track and get mocked TrackableObjectAbstract instance
     $tracker   = ObjectTracker::getInstance();
-    $trackable = $tracker->track($src_trackable)->get('test_type', 'test_id');
-
-    // Verify TrackableObjectAbstract methods are called
-    $trackable_mock->verifyInvoked('getObjectID');
-    $trackable_mock->verifyInvoked('getObjectType');
+    $trackable = $tracker->track($trackable_mock)->get('test_type', 'test_id');
 
     // Verify the returned object matches the tracker one
-    $I->assertEquals($src_trackable, $trackable);
+    $I->assertEquals($trackable_mock, $trackable);
 
     // Check if ::get returns null if object id doesn't exist
     $tracker->get('test_type', 'test_id_2');

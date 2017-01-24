@@ -2,7 +2,7 @@
 
 namespace Ponticlaro\Bebop\Common;
 
-use Ponticlaro\Bebop\Common\Patterns\TrackableObjectAbstract;
+use Ponticlaro\Bebop\Common\Patterns\TrackableObjectInterface;
 
 class ObjectTracker extends \Ponticlaro\Bebop\Common\Patterns\SingletonAbstract {
 
@@ -18,7 +18,7 @@ class ObjectTracker extends \Ponticlaro\Bebop\Common\Patterns\SingletonAbstract 
 	 * @param  mixed $object Object to be tracked
 	 * @return void
 	 */
-	public function track(TrackableObjectAbstract $object)
+	public function track(TrackableObjectInterface $object)
 	{	
 		// Get object details
 		$id   = (string) $object->getObjectID();
