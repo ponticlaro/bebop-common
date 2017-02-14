@@ -1,48 +1,47 @@
 {
-  "name": "ponticlaro/bebop-common",
-  "description": "Common libraries used by Bebop",
-  "keywords": ["wordpress", "common"],
-  "type": "library",
-  "license": [
-    "MIT",
-    "GPL-3.0+"
-  ],
-  "authors": [
-    {
-      "name": "Ponticlaro",
-      "email": "hello@ponticlaro.com",
-      "homepage": "http://www.ponticlaro.com",
-      "role": "Developer"
-    }
-  ],
-  "require": {
-    "erusev/parsedown": "^1",
-    "erusev/parsedown-extra": "^0"
-  },
-  "require-dev": {
-    "codeception/codeception": "^2",
-    "codeception/aspect-mock": "^2",
-    "10up/wp_mock": "^0",
-    "lucatume/wp-browser": "^1",
-    "apigen/apigen": "^4",
-    "codeclimate/php-test-reporter": "^0"
-  },
-  "suggest": {
-    "michelf/php-smartypants": "Allows Markdown parsing"
-  },
-  "autoload": {
-    "psr-4": {
-      "Ponticlaro\\Bebop\\Common\\": "src/"
-    }
-  },
-  "scripts": {
-    "generate-docs": "apigen generate --config ./.apigen.yml"
-  },
-  "support": {
-    "email": "hello@ponticlaro.com",
-    "issues": "https://github.com/ponticlaro/bebop-common/issues",
-    "forum": "https://gitter.im/ponticlaro/bebop"
-  },
-  "minimum-stability": "dev",
-  "prefer-stable": true
+    "name": "ponticlaro/bebop-common",
+    "description": "Common libraries used by Bebop",
+    "keywords": ["wordpress", "common"],
+    "type": "library",
+    "license": [
+        "MIT",
+        "GPL-3.0+"
+    ],
+    "authors": [{
+        "name": "Ponticlaro",
+        "email": "hello@ponticlaro.com",
+        "homepage": "http://www.ponticlaro.com",
+        "role": "Developer"
+    }],
+    "require": {
+        "erusev/parsedown": "^1",
+        "erusev/parsedown-extra": "^0"
+    },
+    "require-dev": {
+        "codeception/codeception": "^2",
+        "codeception/aspect-mock": "^2",
+        "10up/wp_mock": "^0",
+        "lucatume/wp-browser": "^1",
+        "apigen/apigen": "^4",
+        "codeclimate/php-test-reporter": "^0",
+        "codacy/coverage": "^1"
+    },
+    "suggest": {
+        "michelf/php-smartypants": "Allows Markdown parsing"
+    },
+    "autoload": {
+        "psr-4": {
+            "Ponticlaro\\Bebop\\Common\\": "src/"
+        }
+    },
+    "scripts": {
+        "generate-docs": "apigen generate --config ./.apigen.yml"
+    },
+    "support": {
+        "email": "hello@ponticlaro.com",
+        "issues": "https://github.com/ponticlaro/bebop-common/issues",
+        "forum": "https://gitter.im/ponticlaro/bebop"
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
 }

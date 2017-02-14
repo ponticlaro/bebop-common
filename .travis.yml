@@ -17,6 +17,7 @@ script: vendor/bin/codecept run unit --coverage-xml
 
 after_success:
   - vendor/bin/test-reporter --coverage-report tests/_output/coverage.xml
+  - vendor/bin/codacycoverage clover tests/_output/coverage.xml
 
 matrix:
   fast_finish: true
@@ -31,7 +32,3 @@ notifications:
     on_success: change
     on_failure: always
     on_start: never
-
-addons:
-  code_climate:
-    repo_token: 9257045a3d2c1ca68c14ed8352b093b91c1b61f6fee57e37a56541f0c238240f
