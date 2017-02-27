@@ -2,7 +2,7 @@
 
 namespace Ponticlaro\Bebop\Common;
 
-class UrlManager extends \Ponticlaro\Bebop\Common\Patterns\SingletonAbstract {
+class UrlManager {
 
 	/**
 	 * Class instance
