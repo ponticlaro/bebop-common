@@ -4,13 +4,47 @@ namespace Ponticlaro\Bebop\Common;
 
 use Ponticlaro\Bebop\Common\Patterns\TrackableObjectInterface;
 
-class ObjectTracker extends \Ponticlaro\Bebop\Common\Patterns\SingletonAbstract {
+class ObjectTracker {
+
+	/**
+	 * Class instance
+	 * 
+	 * @var object
+	 */
+	private static $instance;
 
 	/**
 	 * List with all the tracked object types lists
 	 * @var array
 	 */
 	protected $lists = [];
+
+  /**
+	 * Instantiates class
+	 * 
+	 * @return void
+	 */
+  public function __construct() {}
+
+  /**
+	 * Do not allow clones
+	 * 
+	 * @return void
+	 */
+  private final function __clone() {}
+
+	/**
+	 * Gets single instance of called class
+	 * 
+	 * @return object
+	 */
+	public static function getInstance() 
+	{
+		if (!isset(static::$instance))
+      static::$instance = new static();
+
+    return static::$instance;
+	}
 
 	/**
 	 * Tracks Bebop objects

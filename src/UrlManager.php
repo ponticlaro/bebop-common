@@ -4,18 +4,26 @@ namespace Ponticlaro\Bebop\Common;
 
 class UrlManager extends \Ponticlaro\Bebop\Common\Patterns\SingletonAbstract {
 
+	/**
+	 * Class instance
+	 * 
+	 * @var object
+	 */
+	private static $instance;
+
   /**
    * List of environments
    * 
-   * @var array;
+   * @var array
    */
   protected $urls = [];
 
   /**
-   * Instantiates Env Manager object
-   * 
-   */
-  protected function __construct()
+	 * Instantiates class
+	 * 
+	 * @return void
+	 */
+  public function __construct()
   {
     $uploads_data = wp_upload_dir();
     $template_url = get_bloginfo('template_url');
@@ -29,6 +37,26 @@ class UrlManager extends \Ponticlaro\Bebop\Common\Patterns\SingletonAbstract {
     $this->urls['themes']  = str_replace('/'. basename($template_url), '', $template_url);
     $this->urls['theme']   = $template_url;
   }
+
+  /**
+	 * Do not allow clones
+	 * 
+	 * @return void
+	 */
+  private final function __clone() {}
+
+	/**
+	 * Gets single instance of called class
+	 * 
+	 * @return object
+	 */
+	public static function getInstance() 
+	{
+		if (!isset(static::$instance))
+      static::$instance = new static();
+
+    return static::$instance;
+	}
 
   /**
    * Used to store a single URL using a key

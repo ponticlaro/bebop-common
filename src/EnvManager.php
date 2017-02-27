@@ -2,26 +2,54 @@
 
 namespace Ponticlaro\Bebop\Common;
 
-class EnvManager extends \Ponticlaro\Bebop\Common\Patterns\SingletonAbstract {
+class EnvManager {
+
+	/**
+	 * Class instance
+	 * 
+	 * @var object
+	 */
+	private static $instance;
 
   /**
    * List of environments
    * 
-   * @var array;
+   * @var array
    */
   protected $__envs = [];
 
   /**
-   * Instantiates Env Manager object
-   * 
-   */
-  protected function __construct()
+	 * Instantiates class
+	 * 
+	 * @return void
+	 */
+  public function __construct()
   {
     // Instantiate environments collection object
     $this->add('development')
          ->add('staging')
          ->add('production');
   }
+
+  /**
+	 * Do not allow clones
+	 * 
+	 * @return void
+	 */
+  private final function __clone() {}
+
+	/**
+	 * Gets single instance of called class
+	 * 
+	 * @return object
+	 */
+	public static function getInstance() 
+	{
+		if (!isset(static::$instance))
+      static::$instance = new static();
+
+    return static::$instance;
+	}
 
   /**
    * Adds a new environment with target key,

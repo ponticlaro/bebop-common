@@ -4,7 +4,14 @@ namespace Ponticlaro\Bebop\Common;
 
 use Ponticlaro\Bebop\Common\Feature;
 
-class FeatureManager extends \Ponticlaro\Bebop\Common\Patterns\SingletonAbstract {
+class FeatureManager {
+
+	/**
+	 * Class instance
+	 * 
+	 * @var object
+	 */
+	private static $instance;
 
   /**
    * Features list
@@ -14,10 +21,11 @@ class FeatureManager extends \Ponticlaro\Bebop\Common\Patterns\SingletonAbstract
   protected $features = [];
 
   /**
-   * Instantiates feature manager
-   * 
-   */
-  protected function __construct()
+	 * Instantiates class
+	 * 
+	 * @return void
+	 */
+  public function __construct()
   {
     // MVC / Model / Loadables Auto Context
     $loadables_auto_context = (new Feature('mvc/model/loadables_auto_context'))->enable();
@@ -27,6 +35,26 @@ class FeatureManager extends \Ponticlaro\Bebop\Common\Patterns\SingletonAbstract
     $http_api_v2_models = (new Feature('http_api/v2_data_models'))->enable();
     $this->add($http_api_v2_models);
   }
+
+  /**
+	 * Do not allow clones
+	 * 
+	 * @return void
+	 */
+  private final function __clone() {}
+
+	/**
+	 * Gets single instance of called class
+	 * 
+	 * @return object
+	 */
+	public static function getInstance() 
+	{
+		if (!isset(static::$instance))
+      static::$instance = new static();
+
+    return static::$instance;
+	}
 
   /**
    * Adds a single feature

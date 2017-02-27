@@ -12,7 +12,14 @@ use Ponticlaro\Bebop\Common\ContextContainer;
  * otherwise those won't be used to find the correct context
  * 
  */
-class ContextManager extends \Ponticlaro\Bebop\Common\Patterns\SingletonAbstract {
+class ContextManager {
+
+	/**
+	 * Class instance
+	 * 
+	 * @var object
+	 */
+	private static $instance;
 
   /**
    * Current context key
@@ -40,7 +47,7 @@ class ContextManager extends \Ponticlaro\Bebop\Common\Patterns\SingletonAbstract
    * Instantiates Context Manager
    * 
    */
-  protected function __construct()
+  public function __construct()
   {
     // Add default context rules
     $this->add('default', function($q) {
@@ -91,6 +98,26 @@ class ContextManager extends \Ponticlaro\Bebop\Common\Patterns\SingletonAbstract
     // Add action to define current context
     add_action('wp', array($this, 'defineCurrent'));
   }
+
+  /**
+	 * Do not allow clones
+	 * 
+	 * @return void
+	 */
+  private final function __clone() {}
+
+	/**
+	 * Gets single instance of called class
+	 * 
+	 * @return object
+	 */
+	public static function getInstance() 
+	{
+		if (!isset(static::$instance))
+      static::$instance = new static();
+
+    return static::$instance;
+	}
 
   /**
    * Defines current contexts by running all

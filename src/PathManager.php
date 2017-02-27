@@ -2,20 +2,28 @@
 
 namespace Ponticlaro\Bebop\Common;
 
-class PathManager extends \Ponticlaro\Bebop\Common\Patterns\SingletonAbstract {
+class PathManager {
+
+	/**
+	 * Class instance
+	 * 
+	 * @var object
+	 */
+	private static $instance;
 
   /**
    * List of environments
    * 
-   * @var array;
+   * @var array
    */
   protected $paths = [];
 
   /**
-   * Instantiates Env Manager object
-   * 
-   */
-  protected function __construct()
+	 * Instantiates class
+	 * 
+	 * @return void
+	 */
+  public function __construct()
   {
     $uploads_data = wp_upload_dir();
     $template_dir = get_template_directory();
@@ -29,6 +37,26 @@ class PathManager extends \Ponticlaro\Bebop\Common\Patterns\SingletonAbstract {
     $this->paths['themes']  = str_replace('/'. basename($template_dir), '', $template_dir);
     $this->paths['theme']   = get_template_directory();
   }
+
+  /**
+	 * Do not allow clones
+	 * 
+	 * @return void
+	 */
+  private final function __clone() {}
+
+	/**
+	 * Gets single instance of called class
+	 * 
+	 * @return object
+	 */
+	public static function getInstance() 
+	{
+		if (!isset(static::$instance))
+      static::$instance = new static();
+
+    return static::$instance;
+	}
 
   /**
    * Used to store a single path using a key
