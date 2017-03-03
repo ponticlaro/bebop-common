@@ -9,13 +9,11 @@ class ContextManagerCest
   public function _before(UnitTester $I)
   {
     Test::clean();
-    WP_Mock::setUp();
   }
 
   public function _after(UnitTester $I)
   {
     Test::clean();
-    WP_Mock::tearDown();
   }
 
   /**
@@ -34,6 +32,9 @@ class ContextManagerCest
     $wp_query = Mockery::mock('\WP_Query');
     $wp_query->shouldReceive('is_home')->andReturn(true);
 
+    // Mock add_action
+    $add_action_mock = Test::func('Ponticlaro\Bebop\Common', 'add_action', true);
+
     // Mock ContextContainer
     $container_mock = Test::double('Ponticlaro\Bebop\Common\ContextContainer');
 
@@ -50,7 +51,13 @@ class ContextManagerCest
     $m_mock->verifyInvokedOnce('add');
 
     // Check if ::defineCurrent is added to the wp hook
-    // WP_Mock::expectActionAdded('wp', array($m, 'defineCurrent'), null, null);
+    $add_action_mock->verifyInvokedOnce([
+      'wp',
+      [
+        $m, 
+        'defineCurrent'
+      ]
+    ]);
 
     // Check if ContextContainer::run is called once
     $container_mock->verifyInvokedOnce('run');
