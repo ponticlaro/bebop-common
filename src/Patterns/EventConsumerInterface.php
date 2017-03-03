@@ -3,6 +3,7 @@
 namespace Ponticlaro\Bebop\Common\Patterns;
 
 use \Ponticlaro\Bebop\Common\Patterns\EventEmitterInterface;
+use \Ponticlaro\Bebop\Common\Patterns\EventMessageInterface;
 
 interface EventConsumerInterface {  
 
@@ -25,5 +26,5 @@ interface EventConsumerInterface {
    * 
    * @param mixed $message Event message
    */
-  public function consumeEvent($message);
+  public function consumeEvent(EventMessageInterface $message);
 }
