@@ -57,6 +57,7 @@ class UrlManagerCest
 
   /**
    * @author cristianobaptista
+   * @covers Ponticlaro\Bebop\Common\UrlManager::getInstance
    * @covers Ponticlaro\Bebop\Common\UrlManager::__construct
    * @covers Ponticlaro\Bebop\Common\UrlManager::getAll
    * 

@@ -41,6 +41,7 @@ class PathManagerCest
 
   /**
    * @author cristianobaptista
+   * @covers Ponticlaro\Bebop\Common\PathManager::getInstance
    * @covers Ponticlaro\Bebop\Common\PathManager::__construct
    * @covers Ponticlaro\Bebop\Common\PathManager::getAll
    * 

@@ -18,6 +18,7 @@ class ContextManagerCest
 
   /**
    * @author cristianobaptista
+   * @covers Ponticlaro\Bebop\Common\ContextManager::getInstance
    * @covers Ponticlaro\Bebop\Common\ContextManager::__construct
    * @covers Ponticlaro\Bebop\Common\ContextManager::defineCurrent
    * @covers Ponticlaro\Bebop\Common\ContextManager::getCurrent

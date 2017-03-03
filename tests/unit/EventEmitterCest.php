@@ -17,6 +17,7 @@ class EventEmitterCest
 
   /**
    * @author cristianobaptista
+   * @covers Ponticlaro\Bebop\Common\EventEmitter::getInstance
    * @covers Ponticlaro\Bebop\Common\EventEmitter::subscribe
    * @covers Ponticlaro\Bebop\Common\EventEmitter::publish
    * @covers Ponticlaro\Bebop\Common\EventEmitter::getAllChannels

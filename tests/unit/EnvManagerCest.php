@@ -18,6 +18,7 @@ class EnvManagerCest
 
   /**
    * @author cristianobaptista
+   * @covers Ponticlaro\Bebop\Common\EnvManager::getInstance
    * @covers Ponticlaro\Bebop\Common\EnvManager::__construct
    * @covers Ponticlaro\Bebop\Common\EnvManager::exists
    * @covers Ponticlaro\Bebop\Common\EnvManager::get

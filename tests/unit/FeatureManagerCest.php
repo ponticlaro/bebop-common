@@ -20,6 +20,7 @@ class FeatureManagerCest
 
   /**
    * @author cristianobaptista
+   * @covers Ponticlaro\Bebop\Common\FeatureManager::getInstance
    * @covers Ponticlaro\Bebop\Common\FeatureManager::__construct
    * @covers Ponticlaro\Bebop\Common\FeatureManager::add
    * @covers Ponticlaro\Bebop\Common\FeatureManager::get
