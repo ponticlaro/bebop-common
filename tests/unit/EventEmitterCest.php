@@ -26,6 +26,9 @@ class EventEmitterCest
    */
   public function PubSubAndGetChannels(UnitTester $I)
   {
+    // Create EventMessage
+    $message = new \Ponticlaro\Bebop\Common\EventMessage('unit_test_action', []);
+
     // Mock function to be used as subscriber
     $subscriber = Test::func('Ponticlaro\Bebop\Common', 'event_emitter_subscriber', null);
 
@@ -60,9 +63,9 @@ class EventEmitterCest
 
     // Testing ::publish
     foreach ($channels as $channel => $subscribers) {
-      $ee->publish($channel, 'message');
+      $ee->publish($channel, $message);
     }
 
-    $subscriber->verifyInvokedMultipleTimes(6, ['message']);
+    $subscriber->verifyInvokedMultipleTimes(6, [$message]);
   }
 }

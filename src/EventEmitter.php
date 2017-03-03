@@ -3,6 +3,7 @@
 namespace Ponticlaro\Bebop\Common;
 
 use \Ponticlaro\Bebop\Common\Patterns\EventEmitterInterface;
+use \Ponticlaro\Bebop\Common\Patterns\EventMessageInterface;
 
 class EventEmitter implements EventEmitterInterface {
 
@@ -69,7 +70,7 @@ class EventEmitter implements EventEmitterInterface {
    * @param string $channel
    * @param mixed  $message
    */
-  public function publish($channel, $message)
+  public function publish($channel, EventMessageInterface $message)
   {
     foreach ($this->getChannelSubscribers($channel) as $handler) {
       call_user_func($handler, $message);

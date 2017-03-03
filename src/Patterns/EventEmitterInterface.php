@@ -18,7 +18,7 @@ interface EventEmitterInterface {
    * @param string $channel
    * @param mixed  $message
    */
-  public function publish($channel, $message);
+  public function publish($channel, EventMessageInterface $message);
   
   /**
    * Returns all channels and their subscribers
