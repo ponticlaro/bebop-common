@@ -27,7 +27,7 @@ class ObjectTrackerCest
     $trackable_mock->shouldReceive('getObjectID')->once()->andReturn('test_id');
     $trackable_mock->shouldReceive('getObjectType')->once()->andReturn('test_type');
 
-    // Track and get mocked TrackableObjectAbstract instance
+    // Track and get mocked TrackableObjectInterface instance
     $tracker   = ObjectTracker::getInstance();
     $trackable = $tracker->track($trackable_mock)->get('test_type', 'test_id');
 

@@ -2,7 +2,7 @@
 
 use Ponticlaro\Bebop\Common\Patterns\EventConsumerTrait;
 use Ponticlaro\Bebop\Common\Patterns\FactoryAbstract;
-use Ponticlaro\Bebop\Common\Patterns\TrackableObjectAbstract;
+use Ponticlaro\Bebop\Common\Patterns\TrackableObjectInterface;
 
 function context_container_callable($wp_query) {
   return true;
@@ -35,10 +35,17 @@ class TestEventConsumer {
   use EventConsumerTrait;
 }
 
-class TestTrackableObject extends TrackableObjectAbstract {
+class TestTrackableObject implements TrackableObjectInterface {
 
-  protected $__trackable_id   = 'test_one';
-  protected $__trackable_type = 'test';
+  public function getObjectID()
+  {
+    return 'test_one';
+  }
+
+  public function getObjectType()
+  {
+    return 'test';
+  }
 }
 
 class TestManufacturableOne {}
