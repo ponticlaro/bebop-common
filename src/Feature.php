@@ -96,7 +96,7 @@ class Feature {
    * 
    * @since 1.0.0
    *
-   * @return object Current feature object
+   * @return boolean True is enabled, false otherwise
    */
   public function isEnabled()
   {
