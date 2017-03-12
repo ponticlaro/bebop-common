@@ -24,7 +24,7 @@ interface TrackableObjectInterface {
    *
    * @return string
    */
-	public function getObjectID();
+  public function getObjectID();
 
   /**
    * Returns trackable object type.
@@ -33,5 +33,5 @@ interface TrackableObjectInterface {
    *
    * @return string
    */
-	public function getObjectType();
+  public function getObjectType();
 }
