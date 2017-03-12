@@ -7,12 +7,12 @@ use \Ponticlaro\Bebop\Common\Patterns\EventMessageInterface;
 
 class EventEmitter implements EventEmitterInterface {
 
-	/**
-	 * Class instance
-	 * 
-	 * @var object
-	 */
-	private static $instance;
+  /**
+   * Class instance
+   * 
+   * @var object
+   */
+  private static $instance;
 
   /**
    * Event channels & subscribers
@@ -22,31 +22,31 @@ class EventEmitter implements EventEmitterInterface {
   protected $channels = [];
 
   /**
-	 * Instantiates class
-	 * 
-	 * @return void
-	 */
+   * Instantiates class
+   * 
+   * @return void
+   */
   public function __construct() {}
 
   /**
-	 * Do not allow clones
-	 * 
-	 * @return void
-	 */
+   * Do not allow clones
+   * 
+   * @return void
+   */
   private final function __clone() {}
 
-	/**
-	 * Gets single instance of called class
-	 * 
-	 * @return object
-	 */
-	public static function getInstance() 
-	{
-		if (!isset(static::$instance))
+  /**
+   * Gets single instance of called class
+   * 
+   * @return object
+   */
+  public static function getInstance() 
+  {
+    if (!isset(static::$instance))
       static::$instance = new static();
 
     return static::$instance;
-	}
+  }
 
   /**
    * Subscribe a handler to a channel.

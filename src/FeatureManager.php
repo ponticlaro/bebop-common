@@ -31,10 +31,10 @@ class FeatureManager {
   protected $features = [];
 
   /**
-	 * Instantiates class
+   * Instantiates class
    *
    * @since 1.0.0
-	 */
+   */
   public function __construct()
   {
     // MVC / Model / Loadables Auto Context

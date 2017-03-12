@@ -32,10 +32,10 @@ class EnvManager {
   protected $__envs = [];
 
   /**
-	 * Instantiates class
-	 * 
+   * Instantiates class
+   * 
    * @since 1.0.0
-	 */
+   */
   public function __construct()
   {
     // Instantiate environments collection object
