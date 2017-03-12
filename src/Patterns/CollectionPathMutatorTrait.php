@@ -6,7 +6,7 @@
  * @since 1.1.5
  */
 
-namespace Ponticlaro\Bebop\Common\Patterns\Traits;
+namespace Ponticlaro\Bebop\Common\Patterns;
 
 /**
  * Extension for the Collection class that facilitates path handling
@@ -16,7 +16,7 @@ namespace Ponticlaro\Bebop\Common\Patterns\Traits;
  * @api
  * @see \Ponticlaro\Bebop\Common\Patterns\Collection
  */
-trait CollectionPathMutator {
+trait CollectionPathMutatorTrait {
 
   /**
    * Used to store a single path using a key

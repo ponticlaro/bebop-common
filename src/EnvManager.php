@@ -8,19 +8,19 @@
 
 namespace Ponticlaro\Bebop\Common;
 
-use Ponticlaro\Bebop\Common\Patterns\Traits\Singleton;
+use Ponticlaro\Bebop\Common\Patterns\SingletonTrait;
 
 /**
  * Determines the current environment.
  *
  * @package Bebop\Common
  * @since 1.0.0
- * @since 1.1.5 Uses Singleton trait
+ * @since 1.1.5 Uses SingletonTrait trait
  * @api
  */
 class EnvManager {
 
-  use Singleton;
+  use SingletonTrait;
 
   /**
    * List of environments

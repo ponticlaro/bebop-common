@@ -6,7 +6,7 @@
  * @since 1.1.5
  */
 
-namespace Ponticlaro\Bebop\Common\Patterns\Traits;
+namespace Ponticlaro\Bebop\Common\Patterns;
 
 /**
  * Sets or traits for a Singleton with a public __construct
@@ -15,7 +15,7 @@ namespace Ponticlaro\Bebop\Common\Patterns\Traits;
  * @since 1.1.5
  * @api
  */
-trait Singleton {
+trait SingletonTrait {
 
   /**
    * Class instance

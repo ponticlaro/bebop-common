@@ -8,22 +8,22 @@
 
 namespace Ponticlaro\Bebop\Common;
 
-use Ponticlaro\Bebop\Common\Patterns\Traits\Singleton;
-use Ponticlaro\Bebop\Common\Patterns\Traits\CollectionPathMutator;
+use Ponticlaro\Bebop\Common\Patterns\SingletonTrait;
+use Ponticlaro\Bebop\Common\Patterns\CollectionPathMutatorTrait;
 
 /**
  * Collection of paths available sitewide
  *
  * @package Bebop\Common
  * @since 1.0.0
- * @since 1.1.5 Extends from Collection; Uses Singleton and CollectionPathMutator traits
+ * @since 1.1.5 Extends from Collection; Uses SingletonTrait and CollectionPathMutatorTrait traits
  * @api
  * @see \Ponticlaro\Bebop\Common\Collection Extended collection class
  */
 class PathManager extends Collection {
 
-  use Singleton;
-  use CollectionPathMutator;
+  use SingletonTrait;
+  use CollectionPathMutatorTrait;
 
   /**
    * {@inheritDoc}

@@ -10,20 +10,20 @@ namespace Ponticlaro\Bebop\Common;
 
 use Ponticlaro\Bebop\Common\Patterns\EventEmitterInterface;
 use Ponticlaro\Bebop\Common\Patterns\EventMessageInterface;
-use Ponticlaro\Bebop\Common\Patterns\Traits\Singleton;
+use Ponticlaro\Bebop\Common\Patterns\SingletonTrait;
 
 /**
  * Event emitter class.
  *
  * @package Bebop\Common
  * @since 1.1.4
- * @since 1.1.5 Uses Singleton trait
+ * @since 1.1.5 Uses SingletonTrait trait
  * @internal
  * @see \Ponticlaro\Bebop\Common\Patterns\EventEmitterInterface Implemented EventEmitter interface
  */
 class EventEmitter implements EventEmitterInterface {
 
-  use Singleton;
+  use SingletonTrait;
 
   /**
    * Event channels & subscribers.

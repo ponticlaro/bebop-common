@@ -9,19 +9,19 @@
 namespace Ponticlaro\Bebop\Common;
 
 use Ponticlaro\Bebop\Common\Patterns\TrackableObjectInterface;
-use Ponticlaro\Bebop\Common\Patterns\Traits\Singleton;
+use Ponticlaro\Bebop\Common\Patterns\SingletonTrait;
 
 /**
  * Object tracker
  *
  * @package Bebop\Common
  * @since 1.0.0
- * @since 1.1.5 Uses Singleton trait
+ * @since 1.1.5 Uses SingletonTrait trait
  * @internal
  */
 class ObjectTracker {
 
-  use Singleton;
+  use SingletonTrait;
 
   /**
    * List with all the tracked object types lists.

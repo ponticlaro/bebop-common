@@ -8,7 +8,7 @@
 
 namespace Ponticlaro\Bebop\Common;
 
-use Ponticlaro\Bebop\Common\Patterns\Traits\Singleton;
+use Ponticlaro\Bebop\Common\Patterns\SingletonTrait;
 
 /**
  * Determines the current context from the global \WP_Query instance.
@@ -21,12 +21,12 @@ use Ponticlaro\Bebop\Common\Patterns\Traits\Singleton;
  *
  * @package Bebop\Common
  * @since 1.0.0
- * @since 1.1.5 Uses Singleton trait
+ * @since 1.1.5 Uses SingletonTrait trait
  * @api
  */
 class ContextManager {
 
-  use Singleton;
+  use SingletonTrait;
 
   /**
    * Current context key.
