@@ -11,12 +11,12 @@ class UrlManagerCest
    */
   protected $urls = [
     'home'    => '/',
-    'admin'   => '/wp-admin/',
-    'plugins' => '/wp-content/plugins/',
-    'content' => '/wp-content/',
-    'uploads' => '/wp-content/uploads/',
-    'themes'  => '/wp-content/themes/',
-    'theme'   => '/wp-content/themes/bebop/',
+    'admin'   => '/wp-admin',
+    'plugins' => '/wp-content/plugins',
+    'content' => '/wp-content',
+    'uploads' => '/wp-content/uploads',
+    'themes'  => '/wp-content/themes',
+    'theme'   => '/wp-content/themes/bebop',
   ];
 
   public function _before(UnitTester $I)
@@ -127,7 +127,7 @@ class UrlManagerCest
     // Testing value + relative url
     $url = $m->get('theme', '/relative/url');
 
-    $I->assertEquals($this->urls['theme'] .'relative/url', $url);
+    $I->assertEquals($this->urls['theme'] .'/relative/url', $url);
 
     // Testing unexisting key
     $I->assertNull($m->get('not_set_url', '/relative/url'));

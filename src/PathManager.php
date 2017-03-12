@@ -2,121 +2,31 @@
 
 namespace Ponticlaro\Bebop\Common;
 
-class PathManager {
+use Ponticlaro\Bebop\Common\Patterns\Traits\Singleton;
+use Ponticlaro\Bebop\Common\Patterns\Traits\CollectionRelativePathMutator;
 
-	/**
-	 * Class instance
-	 * 
-	 * @var object
-	 */
-	private static $instance;
+class PathManager extends Collection {
+
+  use Singleton;
+  use CollectionRelativePathMutator;
 
   /**
-   * List of environments
-   * 
-   * @var array
+   * {@inheritDoc}
    */
-  protected $paths = [];
-
-  /**
-	 * Instantiates class
-	 * 
-	 * @return void
-	 */
-  public function __construct()
+  public function __construct( array $data = [] )
   {
+    parent::__construct( $data );
+
     $uploads_data = wp_upload_dir();
     $template_dir = get_template_directory();
 
-    // Adde default paths
-    $this->paths['root']    = ABSPATH;
-    $this->paths['admin']   = '';
-    $this->paths['plugins'] = '';
-    $this->paths['content'] = '';
-    $this->paths['uploads'] = $uploads_data['basedir'];
-    $this->paths['themes']  = str_replace('/'. basename($template_dir), '', $template_dir);
-    $this->paths['theme']   = get_template_directory();
-  }
-
-  /**
-	 * Do not allow clones
-	 * 
-	 * @return void
-	 */
-  private final function __clone() {}
-
-	/**
-	 * Gets single instance of called class
-	 * 
-	 * @return object
-	 */
-	public static function getInstance() 
-	{
-		if (!isset(static::$instance))
-      static::$instance = new static();
-
-    return static::$instance;
-	}
-
-  /**
-   * Used to store a single path using a key
-   * 
-   * @param string $key  Key 
-   * @param string $path Path
-   */
-  public function set($key, $path)
-  {
-    $this->paths[$key] = rtrim($path, '/');
-
-    return $this;
-  }
-
-  /**
-   * Checks if the target path exists
-   * 
-   * @param string $key Key of the path to check
-   */
-  public function has($key)
-  {
-    if (!is_string($key)) 
-      return false;
-
-    return isset($this->paths[$key]);
-  }
-
-  /**
-   * Returns a single path using a key
-   * with an optionally suffixed realtive path
-   * 
-   * @param  string $key           Key for the target path
-   * @param  string $relative_path Optional relative path
-   * @return string                path
-   */
-  public function get($key, $relative_path = null)
-  {   
-    if (!is_string($key))
-      return null;
-
-    if (!$this->has($key))
-      return null;
-
-    // Get path without trailing slash
-    $path = $this->paths[$key];
-
-    // Concatenate relative URL
-    if ($relative_path)
-      $path = rtrim($path, '/') .'/'. ltrim($relative_path, '/');
-
-    return $path; 
-  }
-
-  /**
-   * Returns all paths
-   * 
-   * @return array
-   */
-  public function getAll()
-  {
-    return $this->paths;
+    // Add default paths
+    $this->set( 'root', ABSPATH );
+    $this->set( 'admin', '' );
+    $this->set( 'plugins', '' );
+    $this->set( 'content', '' );
+    $this->set( 'uploads', $uploads_data['basedir'] );
+    $this->set( 'themes', str_replace( '/'. basename( $template_dir ), '', $template_dir ) );
+    $this->set( 'theme', get_template_directory());
   }
 }

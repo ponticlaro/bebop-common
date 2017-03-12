@@ -10,13 +10,13 @@ class PathManagerCest
    * @var array
    */
   protected $paths = [
-    'root'    => '/var/www/',
+    'root'    => '/var/www',
     'admin'   => '',
     'plugins' => '',
     'content' => '',
-    'uploads' => '/wp-content/uploads/',
-    'themes'  => '/wp-content/themes/',
-    'theme'   => '/wp-content/themes/bebop/',
+    'uploads' => '/wp-content/uploads',
+    'themes'  => '/wp-content/themes',
+    'theme'   => '/wp-content/themes/bebop',
   ];
 
   public function _before(UnitTester $I)
@@ -113,7 +113,7 @@ class PathManagerCest
     // Testing value + relative path
     $path = $m->get('theme', '/relative/path');
 
-    $I->assertEquals($this->paths['theme'] .'relative/path', $path);
+    $I->assertEquals($this->paths['theme'] .'/relative/path', $path);
 
     // Testing unexisting key
     $I->assertNull($m->get('not_set_path', '/relative/path'));
