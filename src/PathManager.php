@@ -1,26 +1,42 @@
 <?php
+/**
+ * PathManager class.
+ *
+ * @package Bebop\Common
+ * @since 1.0.0
+ */
 
 namespace Ponticlaro\Bebop\Common;
 
 use Ponticlaro\Bebop\Common\Patterns\Traits\Singleton;
-use Ponticlaro\Bebop\Common\Patterns\Traits\CollectionRelativePathMutator;
+use Ponticlaro\Bebop\Common\Patterns\Traits\CollectionPathMutator;
 
+/**
+ * Collection of paths available sitewide
+ *
+ * @package Bebop\Common
+ * @since 1.0.0
+ * @api
+ * @see \Ponticlaro\Bebop\Common\Collection Extended collection class
+ */
 class PathManager extends Collection {
 
   use Singleton;
-  use CollectionRelativePathMutator;
+  use CollectionPathMutator;
 
   /**
    * {@inheritDoc}
    */
   public function __construct( array $data = [] )
   {
+    $this->disableDottedNotation();
+
     parent::__construct( $data );
 
     $uploads_data = wp_upload_dir();
     $template_dir = get_template_directory();
 
-    // Add default paths
+    // Set default paths
     $this->set( 'root', ABSPATH );
     $this->set( 'admin', '' );
     $this->set( 'plugins', '' );

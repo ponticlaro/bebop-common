@@ -1,26 +1,42 @@
 <?php
+/**
+ * UrlManager class.
+ *
+ * @package Bebop\Common
+ * @since 1.0.0
+ */
 
 namespace Ponticlaro\Bebop\Common;
 
 use Ponticlaro\Bebop\Common\Patterns\Traits\Singleton;
-use Ponticlaro\Bebop\Common\Patterns\Traits\CollectionRelativePathMutator;
+use Ponticlaro\Bebop\Common\Patterns\Traits\CollectionPathMutator;
 
+/**
+ * Collection of URLs available sitewide
+ *
+ * @package Bebop\Common
+ * @since 1.0.0
+ * @api
+ * @see \Ponticlaro\Bebop\Common\Collection Extended collection class
+ */
 class UrlManager extends Collection {
 
   use Singleton;
-  use CollectionRelativePathMutator;
+  use CollectionPathMutator;
 
   /**
    * {@inheritDoc}
    */
   public function __construct( array $data = [] )
   {
+    $this->disableDottedNotation();
+
     parent::__construct( $data );
 
     $uploads_data = wp_upload_dir();
     $template_url = get_bloginfo( 'template_url' );
 
-    // Instantiate paths collection object
+    // Set default URLs
     $this->set( 'home', home_url() );
     $this->set( 'admin', admin_url() );
     $this->set( 'plugins', plugins_url() );
