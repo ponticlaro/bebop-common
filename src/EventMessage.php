@@ -1,20 +1,38 @@
 <?php
+/**
+ * EventMessage class.
+ *
+ * @package Bebop\Common
+ * @since 1.1.4
+ */
 
 namespace Ponticlaro\Bebop\Common;
 
 use \Ponticlaro\Bebop\Common\Patterns\EventMessageInterface;
 
+/**
+ * Event message transport class.
+ *
+ * @package Bebop\Common
+ * @since 1.1.4
+ * @internal
+ * @see \Ponticlaro\Bebop\Common\Patterns\EventMessageInterface Implemented EventMessage interface
+ */
 class EventMessage implements EventMessageInterface {
 
   /**
-   * Message action ID
+   * Message action ID.
+   * 
+   * @since 1.1.4
    * 
    * @var string
    */
   protected $action;
 
   /**
-   * Message data
+   * Message data.
+   * 
+   * @since 1.1.4
    * 
    * @var array
    */
@@ -23,10 +41,10 @@ class EventMessage implements EventMessageInterface {
   /**
    * {@inheritDoc}
    */
-  public function __construct($action, array $data = [])
+  public function __construct( $action, array $data = [] )
   {
-    if (!is_string($action))
-      throw new \Exception('EventMessage $action must be a string');
+    if ( ! is_string( $action ) )
+      throw new \Exception( 'EventMessage $action must be a string' );
 
     $this->action = $action;
     $this->data   = $data;
@@ -35,10 +53,10 @@ class EventMessage implements EventMessageInterface {
   /**
    * {@inheritDoc}
    */
-  public function setAction($action)
+  public function setAction( $action )
   {
-    if (!is_string($action))
-      throw new \Exception('EventMessage $action must be a string');
+    if ( ! is_string( $action ) )
+      throw new \Exception( 'EventMessage $action must be a string' );
 
     $this->action = $action;
 
@@ -56,7 +74,7 @@ class EventMessage implements EventMessageInterface {
   /**
    * {@inheritDoc}
    */
-  public function setData(array $data = [])
+  public function setData( array $data = [] )
   {
     $this->data = $data;
 

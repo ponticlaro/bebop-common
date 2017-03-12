@@ -1,52 +1,43 @@
 <?php
+/**
+ * EventEmitter class.
+ *
+ * @package Bebop\Common
+ * @since 1.0.0
+ */
 
 namespace Ponticlaro\Bebop\Common;
 
-use \Ponticlaro\Bebop\Common\Patterns\EventEmitterInterface;
-use \Ponticlaro\Bebop\Common\Patterns\EventMessageInterface;
+use Ponticlaro\Bebop\Common\Patterns\EventEmitterInterface;
+use Ponticlaro\Bebop\Common\Patterns\EventMessageInterface;
+use Ponticlaro\Bebop\Common\Patterns\Traits\Singleton;
 
+/**
+ * Event emitter class.
+ *
+ * @package Bebop\Common
+ * @since 1.1.4
+ * @since 1.1.5 Uses Singleton trait
+ * @internal
+ * @see \Ponticlaro\Bebop\Common\Patterns\EventEmitterInterface Implemented EventEmitter interface
+ */
 class EventEmitter implements EventEmitterInterface {
 
-  /**
-   * Class instance
-   * 
-   * @var object
-   */
-  private static $instance;
+  use Singleton;
 
   /**
-   * Event channels & subscribers
+   * Event channels & subscribers.
    * 
    * @var Ponticlaro\Bebop\Common\Collection object
    */
   protected $channels = [];
 
   /**
-   * Instantiates class
+   * Instantiates class.
    * 
    * @return void
    */
   public function __construct() {}
-
-  /**
-   * Do not allow clones
-   * 
-   * @return void
-   */
-  private final function __clone() {}
-
-  /**
-   * Gets single instance of called class
-   * 
-   * @return object
-   */
-  public static function getInstance() 
-  {
-    if (!isset(static::$instance))
-      static::$instance = new static();
-
-    return static::$instance;
-  }
 
   /**
    * Subscribe a handler to a channel.
@@ -54,12 +45,12 @@ class EventEmitter implements EventEmitterInterface {
    * @param string   $channel
    * @param callable $handler
    */
-  public function subscribe($channel, callable $handler)
+  public function subscribe( $channel, callable $handler )
   {
-    if (!isset($this->channels[$channel]))
-      $this->channels[$channel] = [];
+    if ( ! isset( $this->channels[ $channel ] ) )
+      $this->channels[ $channel ] = [];
 
-    $this->channels[$channel][] = $handler;
+    $this->channels[ $channel ][] = $handler;
 
     return $this;
   }
@@ -68,19 +59,20 @@ class EventEmitter implements EventEmitterInterface {
    * Publish a message to a channel.
    *
    * @param string $channel
-   * @param mixed  $message
+   * @param mixed $message
+   * @return EventEmitter This class instance
    */
-  public function publish($channel, EventMessageInterface $message)
+  public function publish( $channel, EventMessageInterface $message )
   {
-    foreach ($this->getChannelSubscribers($channel) as $handler) {
-      call_user_func($handler, $message);
+    foreach ( $this->getChannelSubscribers( $channel ) as $handler ) {
+      call_user_func( $handler, $message );
     }
 
     return $this;
   }
   
   /**
-   * Returns all channels and their subscribers
+   * Returns all channels and their subscribers.
    * 
    * @return array List of channels and their subscribers
    */
@@ -95,8 +87,8 @@ class EventEmitter implements EventEmitterInterface {
    * @param string $channel
    * @return array
    */
-  protected function getChannelSubscribers($channel)
+  protected function getChannelSubscribers( $channel )
   {
-    return isset($this->channels[$channel]) ? $this->channels[$channel] : [];
+    return isset( $this->channels[ $channel ] ) ? $this->channels[ $channel ] : [];
   }
 }
