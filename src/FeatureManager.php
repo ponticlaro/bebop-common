@@ -16,6 +16,7 @@ use Ponticlaro\Bebop\Common\Patterns\Traits\Singleton;
  *
  * @package Bebop\Common
  * @since 1.0.0
+ * @since 1.1.5 Uses Singleton trait
  * @api
  */
 class FeatureManager {

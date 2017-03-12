@@ -16,6 +16,7 @@ use Ponticlaro\Bebop\Common\Patterns\Traits\CollectionPathMutator;
  *
  * @package Bebop\Common
  * @since 1.0.0
+ * @since 1.1.5 Extends from Collection; Uses Singleton and CollectionPathMutator traits
  * @api
  * @see \Ponticlaro\Bebop\Common\Collection Extended collection class
  */
