@@ -26,6 +26,11 @@ class ContextContainerCest
    */
   public function create(UnitTester $I)
   {
+    // Mock WP_Query
+    global $wp_query;
+
+    $wp_query = Mockery::mock('\WP_Query');
+
     // Mock is_string; Force it to return true
     $is_string_mock = Test::func('Ponticlaro\Bebop\Common', 'is_string', true);
 
@@ -42,13 +47,8 @@ class ContextContainerCest
     $I->assertEquals('test', $container->getId());
     $I->assertEquals($callable, $container->getFunction());
 
-    // Global needed for ::run
-    global $wp_query;
-
-    $wp_query = new stdClass;
-
     // Testing ::run
-    $container->run();
+    $container->run($wp_query);
 
     // Check if call_user_func_array was called once
     $callable->verifyInvokedOnce([$wp_query]);
