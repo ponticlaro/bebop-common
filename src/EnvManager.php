@@ -1,19 +1,32 @@
 <?php
+/**
+ * EnvManager class.
+ *
+ * @package Bebop\Common
+ * @since 1.0.0
+ */
 
 namespace Ponticlaro\Bebop\Common;
 
+use Ponticlaro\Bebop\Common\Patterns\Traits\Singleton;
+
+/**
+ * Determines the current environment.
+ *
+ * @package Bebop\Common
+ * @since 1.0.0
+ * @since 1.1.5 Uses Singleton trait
+ * @api
+ */
 class EnvManager {
 
-	/**
-	 * Class instance
-	 * 
-	 * @var object
-	 */
-	private static $instance;
+  use Singleton;
 
   /**
    * List of environments
    * 
+   * @since 1.0.0
+   *
    * @var array
    */
   protected $__envs = [];
@@ -21,148 +34,148 @@ class EnvManager {
   /**
 	 * Instantiates class
 	 * 
-	 * @return void
+   * @since 1.0.0
 	 */
   public function __construct()
   {
     // Instantiate environments collection object
-    $this->add('development')
-         ->add('staging')
-         ->add('production');
+    $this->add( 'development' )
+         ->add( 'staging' )
+         ->add( 'production' );
   }
 
   /**
-	 * Do not allow clones
-	 * 
-	 * @return void
-	 */
-  private final function __clone() {}
-
-	/**
-	 * Gets single instance of called class
-	 * 
-	 * @return object
-	 */
-	public static function getInstance() 
-	{
-		if (!isset(static::$instance))
-      static::$instance = new static();
-
-    return static::$instance;
-	}
-
-  /**
-   * Adds a new environment with target key,
-   * if we do not have that key already
+   * Adds a new environment with target key, if we do not have that key already
    * 
+   * @since 1.0.0
+   *
    * @param string $key Key for the new environment
+   * @return EnvManager This class instance
    */
-  public function add($key)
+  public function add( $key )
   {
-    if (!is_string($key) || $this->exists($key))
+    if ( ! is_string( $key ) || $this->exists( $key ) )
       return $this;
 
-    $this->__envs[$key] = new Env($key);
+    $this->__envs[ $key ] = new Env( $key );
 
     return $this;
   }
 
   /**
-   * Replaces an existing environment or adds a new one
+   * Replaces an existing environment or adds a new one.
    * 
+   * @since 1.0.0
+   *
    * @param string $key Key of the environment to replace or add
+   * @return EnvManager This class instance
    */
-  public function replace($key)
+  public function replace( $key )
   {
-    if (!is_string($key)) 
+    if ( ! is_string( $key ) ) 
       return $this;
 
-    $this->__envs[$key] = new Env($key);
+    $this->__envs[ $key ] = new Env( $key );
 
     return $this;
   }
 
   /**
-   * Checks if the target environment exists
+   * Checks if the target environment exists.
    * 
+   * @since 1.0.0
+   *
    * @param string $key Key of the environment to check
+   * @return boolean True is exists, false otherwise
    */
-  public function exists($key)
+  public function exists( $key )
   {
-    if (!is_string($key)) 
+    if ( ! is_string( $key ) ) 
       return false;
 
-    return isset($this->__envs[$key]);
+    return isset( $this->__envs[ $key ] );
   }
 
   /**
-   * Returns the target environment
+   * Returns the target environment.
    * 
+   * @since 1.0.0
+   *
    * @param string $key Key of the environment to get
+   * @return Env Env class instance
    */
-  public function get($key)
+  public function get( $key )
   {
-    if (!is_string($key)) 
+    if ( ! is_string( $key ) ) 
       return null;
 
-    if (!$this->exists($key))
+    if ( ! $this->exists( $key ) )
       return null;
 
-    return $this->__envs[$key];
+    return $this->__envs[ $key ];
   }
 
   /**
-   * Removes the target environment
+   * Removes the target environment.
    * 
+   * @since 1.0.0
+   *
    * @param string $key Key of the environment to remove
+   * @return EnvManager This class instance
    */
-  public function remove($key)
+  public function remove( $key )
   {
-    if (!is_string($key)) 
+    if ( ! is_string($key ) ) 
       return $this;
 
-    unset($this->__envs[$key]);
+    unset( $this->__envs[ $key ] );
 
     return $this;
   }
 
   /**
-   * Checks if the target environment is the current one
+   * Checks if the target environment is the current one.
    * 
-   * @param  string  $key Key of the environment to check
-   * @return boolean      True if it is the current environment, false otherwise
+   * @since 1.0.0
+   *
+   * @param string $key Key of the environment to check
+   * @return boolean True if it is the current environment, false otherwise
    */
-  public function is($key)
+  public function is( $key )
   {
-    if (!is_string($key)) 
+    if ( ! is_string( $key ) ) 
       return false;
 
     return $key == $this->getCurrentKey() ? true : false;
   }
 
   /**
-   * Returns the current environment
+   * Returns the current environment.
    * 
+   * @since 1.0.0
+   *
    * @return Ponticlaro\Bebop\Env The current environment
    */
   public function getCurrent()
   {
-    foreach ($this->__envs as $key => $env) {
+    foreach ( $this->__envs as $key => $env ) {
         
-      if ($env->isCurrent()) 
+      if ( $env->isCurrent() ) 
         return $env;
     }
 
     // Making sure we have a development environment
-    if (!$this->exists('development'))
-      $this->add('development');
+    if ( ! $this->exists( 'development' ) )
+      $this->add( 'development' );
 
-    return $this->get('development');
+    return $this->get( 'development' );
   }
 
   /**
-   * Returns the key of the current environment
+   * Returns the key of the current environment.
    * 
+   * @since 1.0.0
+   *
    * @return string Key of the current environment
    */
   public function getCurrentKey()

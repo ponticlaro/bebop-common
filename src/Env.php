@@ -1,26 +1,44 @@
 <?php
+/**
+ * Env class.
+ *
+ * @package Bebop\Common
+ * @since 1.0.0
+ */
 
 namespace Ponticlaro\Bebop\Common;
 
+/**
+ * Callable wrapper used to determine the current environment.
+ *
+ * @package Bebop\Common
+ * @since 1.0.0
+ * @api
+ */
 class Env {
 
   /**
-   * Key that identifies this environment
+   * Key that identifies this environment.
    * 
+   * @since 1.0.0
+   *
    * @var string
    */
   private $__key;
 
   /**
-   * List of environments
+   * List of environments.
    * 
-   * @var array;
+   * @since 1.0.0
+   *
+   * @var array
    */
   private $__hosts = [];
 
   /**
-   * Instantiates Env object
+   * Instantiates Env object.
    * 
+   * @since 1.0.0
    */
   public function __construct($key)
   {
@@ -32,8 +50,10 @@ class Env {
   }
 
   /**
-   * Returns the key that identifies this environment
+   * Returns the key that identifies this environment.
    * 
+   * @since 1.0.0
+   *
    * @return string The key that identifies this environment
    */
   public function getKey()
@@ -42,9 +62,12 @@ class Env {
   }
 
   /**
-   * Adds a single host
+   * Adds a single host.
    * 
+   * @since 1.0.0
+   *
    * @param string $host Host to be added
+   * @return Env This class instance
    */
   public function addHost($host)
   {
@@ -55,9 +78,12 @@ class Env {
   }
 
   /**
-   * Adds an array of hosts
+   * Adds an array of hosts.
    * 
+   * @since 1.0.0
+   *
    * @param string $host Hosts to be added
+   * @return Env This class instance
    */
   public function addHosts(array $hosts = array())
   {
@@ -71,8 +97,10 @@ class Env {
   }
 
   /**
-   * Returns all hosts
+   * Returns all hosts.
    * 
+   * @since 1.0.0
+   *
    * @return array All hosts
    */
   public function getHosts()
@@ -81,10 +109,12 @@ class Env {
   }
 
   /**
-   * Checks if this environment have the target host
+   * Checks if this environment have the target host.
    * 
-   * @param  string  $host Host to check
-   * @return boolean       True if listed in this environment, false otherwise
+   * @since 1.0.0
+   *
+   * @param string $host Host to check
+   * @return boolean True if listed in this environment, false otherwise
    */
   public function hasHost($host)
   {
@@ -97,8 +127,10 @@ class Env {
   }
 
   /**
-   * Checks if this is the current environment
+   * Checks if this is the current environment.
    * 
+   * @since 1.0.0
+   *
    * @return boolean True if listed in this environment, false otherwise
    */
   public function isCurrent()
