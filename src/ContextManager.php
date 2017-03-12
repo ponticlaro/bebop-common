@@ -8,6 +8,8 @@
 
 namespace Ponticlaro\Bebop\Common;
 
+use Ponticlaro\Bebop\Common\Patterns\Traits\Singleton;
+
 /**
  * Determines the current context from the global \WP_Query instance.
  *
@@ -19,18 +21,12 @@ namespace Ponticlaro\Bebop\Common;
  *
  * @package Bebop\Common
  * @since 1.0.0
+ * @since 1.1.5 Uses Singleton trait
  * @api
  */
 class ContextManager {
 
-	/**
-	 * Class instance.
-	 * 
-   * @since 1.0.0
-   *
-	 * @var object
-	 */
-	private static $instance;
+  use Singleton;
 
   /**
    * Current context key.
@@ -115,30 +111,6 @@ class ContextManager {
     // Add action to define current context
     add_action( 'wp', [ $this, 'defineCurrent' ]);
   }
-
-  /**
-	 * Do not allow clones.
-	 * 
-   * @since 1.0.0
-   *
-	 * @return void
-	 */
-  private final function __clone() {}
-
-	/**
-	 * Gets Context Manager single instance.
-	 * 
-   * @since 1.0.0
-   *
-	 * @return ContextManager Context Manager instance
-	 */
-	public static function getInstance() 
-	{
-		if ( ! isset( static::$instance ) )
-      static::$instance = new static();
-
-    return static::$instance;
-	}
 
   /**
    * Defines current contexts by running all context containers until it finds a match.
@@ -250,7 +222,7 @@ class ContextManager {
    * Returns single context container by ID.
    * 
    * @since 1.0.0
-   * @deprecated 1.1.7
+   * @deprecated 1.1.5
    *
    * @param string $id ID of the target context container
    * @return ContextContainer Target context container
