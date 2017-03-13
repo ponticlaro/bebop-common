@@ -90,7 +90,7 @@ class FeatureManager {
   /**
    * Returns all features.
    * 
-   * @since 1.0.0
+   * @since 1.1.4
    *
    * @return array List containing all existing features
    */
