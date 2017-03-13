@@ -1,10 +1,4 @@
 <?php
-/**
- * EventMessage interface.
- *
- * @package Bebop\Common
- * @since 1.1.4
- */
 
 namespace Ponticlaro\Bebop\Common\Patterns;
 
@@ -57,7 +51,7 @@ interface EventMessageInterface {
   public function setData( array $data = [] );
 
   /**
-   * Returns message data
+   * Returns message data.
    * 
    * @since 1.1.4
    * 

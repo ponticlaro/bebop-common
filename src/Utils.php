@@ -1,10 +1,4 @@
 <?php
-/**
- * Utils class.
- *
- * @package Bebop\Common
- * @since 1.0.0
- */
 
 namespace Ponticlaro\Bebop\Common;
 
@@ -18,21 +12,21 @@ namespace Ponticlaro\Bebop\Common;
 class Utils {
   
   /**
-   * Making sure class cannot get instantiated
+   * Making sure class cannot get instantiated.
    * 
    * @since 1.0.0
    */
   private function __construct() {}
 
   /**
-   * Making sure class cannot get instantiated
+   * Making sure class cannot get instantiated.
    * 
    * @since 1.0.0
    */
   private function __clone() {}
 
   /**
-   * Checks if wordpress installation is a network
+   * Checks if wordpress installation is a network.
    * 
    * @since 1.0.0
    *
@@ -44,7 +38,7 @@ class Utils {
   }
 
   /**
-   * Converts string from camelcase to underscore pattern
+   * Converts string from camelcase to underscore pattern.
    * 
    * @since 1.0.0
    *
@@ -93,7 +87,7 @@ class Utils {
   }
 
   /**
-   * Parses markdown and optionally fixes punctuation with SmartyPants
+   * Parses markdown and optionally fixes punctuation with SmartyPants.
    *
    * @since 1.0.0
    *
@@ -131,7 +125,7 @@ class Utils {
   }
 
   /**
-   * Fixes punctuation with SmartyPants
+   * Fixes punctuation with SmartyPants.
    *
    * @since 1.0.0
    *
@@ -150,7 +144,7 @@ class Utils {
   }
 
   /**
-   * Checks if a variable contains valid JSON
+   * Checks if a variable contains valid JSON.
    * 
    * @since 1.0.0
    *
@@ -168,7 +162,7 @@ class Utils {
   }
 
   /**
-   * Return target file version based on modification date
+   * Return target file version based on modification date.
    * 
    * @since 1.0.0
    *
@@ -181,7 +175,7 @@ class Utils {
   }
 
   /**
-   * Returns the URL from an absolute path
+   * Returns the URL from an absolute path.
    * 
    * @since 1.0.0
    *
@@ -202,7 +196,7 @@ class Utils {
   }
 
   /**
-   * Gets control elements name attribute from callback function
+   * Gets control elements name attribute from callback function.
    * 
    * @since 1.0.0
    *

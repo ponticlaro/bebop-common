@@ -1,10 +1,4 @@
 <?php
-/**
- * FactoryAbstract class.
- *
- * @package Bebop\Common
- * @since 1.0.0
- */
 
 namespace Ponticlaro\Bebop\Common\Patterns;
 
@@ -18,7 +12,7 @@ namespace Ponticlaro\Bebop\Common\Patterns;
 abstract class FactoryAbstract {
 
   /**
-   * List of manufacturable classes
+   * List of manufacturable classes.
    * 
    * @since 1.0.0
    * 
@@ -27,21 +21,21 @@ abstract class FactoryAbstract {
   protected static $manufacturable = [];
 
   /**
-   * Making sure class cannot get instantiated
+   * Making sure class cannot get instantiated.
    * 
    * @since 1.0.0
    */
   protected function __construct() {}
 
   /**
-   * Making sure class cannot get instantiated
+   * Making sure class cannot get instantiated.
    *
    * @since 1.0.0
    */
   protected function __clone() {}
 
   /**
-   * Adds a new manufacturable class
+   * Adds a new manufacturable class.
    * 
    * @since 1.0.0
    * 
@@ -55,7 +49,7 @@ abstract class FactoryAbstract {
   }
 
   /**
-   * Returns the class for the target manufacturable
+   * Returns the class for the target manufacturable.
    * 
    * @since 1.1.4
    * 
@@ -68,7 +62,7 @@ abstract class FactoryAbstract {
   }
 
   /**
-   * Removes a new manufacturable class
+   * Removes a new manufacturable class.
    * 
    * @since 1.0.0
    * 
@@ -82,7 +76,7 @@ abstract class FactoryAbstract {
   }
 
   /**
-   * Checks if there is a manufacturable with target key
+   * Checks if there is a manufacturable with target key.
    * 
    * @since 1.0.0
    * 
@@ -95,7 +89,7 @@ abstract class FactoryAbstract {
   }
 
   /**
-   * Returns the id to manufacture another instance of the passed object, if any
+   * Returns the id to manufacture another instance of the passed object, if any.
    * 
    * @since 1.0.0
    * 
@@ -116,7 +110,7 @@ abstract class FactoryAbstract {
   }
 
   /**
-   * Creates instance of target class
+   * Creates instance of target class.
    * 
    * @since 1.0.0
    * 

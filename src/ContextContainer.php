@@ -1,10 +1,4 @@
 <?php
-/**
- * Context Container class.
- *
- * @package Bebop\Common
- * @since 1.0.0
- */
 
 namespace Ponticlaro\Bebop\Common;
 
@@ -18,7 +12,7 @@ namespace Ponticlaro\Bebop\Common;
 class ContextContainer {
 
   /**
-   * Context Container ID
+   * Context Container ID.
    *
    * @since 1.0.0
    *
@@ -27,7 +21,7 @@ class ContextContainer {
   private $id;
 
   /**
-   * Context Container function
+   * Context Container function.
    *
    * @since 1.0.0
    *
@@ -36,7 +30,7 @@ class ContextContainer {
   private $function;
 
   /**
-   * Instantiates a Context Container
+   * Instantiates a Context Container.
    *
    * @since 1.0.0
    *
@@ -53,7 +47,7 @@ class ContextContainer {
   }
 
   /**
-   * Returns ID
+   * Returns ID.
    *
    * @since 1.0.0
    *
@@ -65,7 +59,7 @@ class ContextContainer {
   }
 
   /**
-   * Returns function
+   * Returns function.
    *
    * @since 1.0.0
    *
@@ -77,8 +71,7 @@ class ContextContainer {
   }
 
   /**
-   * Executes Context Container function,
-   * passing $wp_query as the first argument
+   * Executes Context Container function, passing $wp_query as the first argument.
    *
    * @since 1.0.0
    *

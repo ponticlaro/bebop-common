@@ -1,10 +1,4 @@
 <?php
-/**
- * Context Manager class.
- *
- * @package Bebop\Common
- * @since 1.0.0
- */
 
 namespace Ponticlaro\Bebop\Common;
 
@@ -191,7 +185,7 @@ class ContextManager {
    * @param  string $key
    * @return ContextManager Context Manager instance
    */
-  public function overrideCurrent($key)
+  public function overrideCurrent( $key )
   {
     if ( is_string( $key ) ) {
       $this->current_backups[] = $this->current;

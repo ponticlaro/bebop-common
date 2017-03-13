@@ -1,10 +1,4 @@
 <?php
-/**
- * Collection class.
- *
- * @package Bebop\Common
- * @since 1.0.0
- */
 
 namespace Ponticlaro\Bebop\Common;
 
@@ -21,7 +15,7 @@ use Ponticlaro\Bebop\Common\Patterns\CollectionInterface;
 class Collection implements CollectionInterface, \IteratorAggregate, \Countable {
 
   /**
-   * Array that contains all the data
+   * Array that contains all the data.
    * 
    * @since 1.0.0
    * 
@@ -30,7 +24,7 @@ class Collection implements CollectionInterface, \IteratorAggregate, \Countable 
   protected $data = [];
 
   /**
-   * Status of multidimensional arrays access through dotted notation
+   * Status of multidimensional arrays access through dotted notation.
    * 
    * @since 1.0.0
    * 
@@ -39,7 +33,7 @@ class Collection implements CollectionInterface, \IteratorAggregate, \Countable 
   protected $dotted_notation_enabled = true;
 
   /**
-   * Separator for path keys
+   * Separator for path keys.
    * 
    * @since 1.0.0
    * 
@@ -50,9 +44,9 @@ class Collection implements CollectionInterface, \IteratorAggregate, \Countable 
   /**
    * {@inheritDoc}
    */
-  public function __construct(array $data = [])
+  public function __construct( array $data = [] )
   {
-    $this->set($data);
+    $this->set( $data );
   }
 
   /**
@@ -90,9 +84,9 @@ class Collection implements CollectionInterface, \IteratorAggregate, \Countable 
   /**
    * {@inheritDoc}
    */
-  public function setPathSeparator($separator)
+  public function setPathSeparator( $separator )
   {
-    if (is_string($separator))
+    if ( is_string( $separator ) )
       $this->path_separator = $separator;
 
     return $this;
@@ -111,28 +105,16 @@ class Collection implements CollectionInterface, \IteratorAggregate, \Countable 
   /**
    * {@inheritDoc}
    */
-  public function set($path, $value = true)
+  public function set( $path, $value = true )
   {
-    if (is_string($path) || is_numeric($path)) {
+    if ( is_string( $path ) || is_numeric( $path ) ) {
 
-      $this->__set($path, $value);
+      $this->__set( $path, $value );
     }
 
-    elseif (is_array($path)) {
+    elseif ( is_array( $path ) ) {
 
-      $this->setList($path);
-    }
-
-    return $this;
-  }
-
-  /**
-   * {@inheritDoc}
-   */
-  public function setList(array $values)
-  {
-    foreach ($values as $path => $value) {
-      $this->__set($path, $value);
+      $this->setList( $path );
     }
 
     return $this;
@@ -141,15 +123,27 @@ class Collection implements CollectionInterface, \IteratorAggregate, \Countable 
   /**
    * {@inheritDoc}
    */
-  public function add($path, $values)
+  public function setList( array $values )
   {
-    $data = $this->__get($path);
+    foreach ( $values as $path => $value ) {
+      $this->__set ($path, $value );
+    }
 
-    if (is_array($values)) {
+    return $this;
+  }
 
-      if (is_array($data)) {
+  /**
+   * {@inheritDoc}
+   */
+  public function add( $path, $values )
+  {
+    $data = $this->__get( $path );
+
+    if ( is_array( $values ) ) {
+
+      if ( is_array( $data ) ) {
           
-        $data = array_merge($data, $values);
+        $data = array_merge( $data, $values );
       }
 
       else {
@@ -163,7 +157,7 @@ class Collection implements CollectionInterface, \IteratorAggregate, \Countable 
       $data[] = $values;
     }
 
-    $this->__set($path, $data);
+    $this->__set( $path, $data );
 
     return $this;
   }
@@ -171,23 +165,23 @@ class Collection implements CollectionInterface, \IteratorAggregate, \Countable 
   /**
    * {@inheritDoc}
    */
-  public function shift($path = null)
+  public function shift( $path = null )
   {
-    if ($path) {
+    if ( $path ) {
         
-      $data = $this->__get($path);
+      $data = $this->__get( $path );
 
-      if (is_array($data)) {
+      if ( is_array( $data ) ) {
           
-        $value = array_shift($data);
+        $value = array_shift( $data );
 
-        $this->__set($path, $data);
+        $this->__set( $path, $data );
       }
     }
 
     else {
 
-      $value = isset($this->data[0]) ? array_shift($this->data) : null;
+      $value = isset( $this->data[0] ) ? array_shift( $this->data ) : null;
     }
 
     return $value;
@@ -196,16 +190,16 @@ class Collection implements CollectionInterface, \IteratorAggregate, \Countable 
   /**
    * {@inheritDoc}
    */
-  public function unshift($value, $path = null)
+  public function unshift( $value, $path = null )
   {
-    if (is_array($value)) {
+    if ( is_array( $value ) ) {
 
-      $this->unshiftList($value, $path);
+      $this->unshiftList( $value, $path );
     }
 
     else {
         
-      $this->__unshiftItem($value, $path);
+      $this->__unshiftItem( $value, $path );
     }
 
     return $this;
@@ -214,69 +208,69 @@ class Collection implements CollectionInterface, \IteratorAggregate, \Countable 
   /**
    * {@inheritDoc}
    */
-  public function unshiftList(array $values, $path = null)
+  public function unshiftList( array $values, $path = null )
   {
-    foreach (array_reverse($values) as $value) {
-      $this->unshift($value, $path);
+    foreach ( array_reverse( $values ) as $value ) {
+      $this->unshift( $value, $path );
     }
 
     return $this;
   }
 
   /**
-   * Adds an item to to beginning of the target array
+   * Adds an item to to beginning of the target array.
    *
    * @since 1.0.0
    * 
-   * @param  mixed  $value The valued to be inserted
-   * @param  string $path  Optional path to unshift the value to
+   * @param mixed $value The valued to be inserted
+   * @param string $path Optional path to unshift the value to
    * @return void      
    */
-  private function __unshiftItem($value, $path = null)
+  private function __unshiftItem( $value, $path = null )
   {
-    if ($path) {
+    if ( $path ) {
         
-      $data = $this->__get($path);
+      $data = $this->__get( $path );
 
-      if (is_array($data)) {
+      if ( is_array( $data ) ) {
 
-        array_unshift($data, $value);
+        array_unshift( $data, $value );
       } 
 
       else {
 
-        $data = [$value];
+        $data = [ $value ];
       }
 
-      $this->__set($path, $data);
+      $this->__set( $path, $data );
     }
 
     else {
 
-      array_unshift($this->data, $value);
+      array_unshift( $this->data, $value );
     }
   }
 
   /**
    * {@inheritDoc}
    */
-  public function push($value, $path = null)
+  public function push( $value, $path = null )
   {
-    if ($path) {
+    if ( $path ) {
         
-      $data = $this->__get($path);
+      $data = $this->__get( $path );
 
-      if (is_array($data)) {
+      if ( is_array( $data ) ) {
 
         $data[] = $value;    
       } 
 
       else {
 
-        $data = [$value];
+        $data = [ $value ];
       }
 
-      $this->__set($path, $data);
+      $this->__set( $path, $data );
     }
 
     else {
@@ -290,10 +284,10 @@ class Collection implements CollectionInterface, \IteratorAggregate, \Countable 
   /**
    * {@inheritDoc}
    */
-  public function pushList(array $values, $path = null)
+  public function pushList( array $values, $path = null )
   {
-    foreach ($values as $value) {  
-      $this->push($value, $path);
+    foreach ( $values as $value ) {  
+      $this->push( $value, $path );
     }
 
     return $this;
@@ -302,32 +296,32 @@ class Collection implements CollectionInterface, \IteratorAggregate, \Countable 
   /**
    * {@inheritDoc}
    */
-  public function pop($value, $path = null)
+  public function pop( $value, $path = null )
   {
-    if ($path) {
+    if ( $path ) {
         
-      $data = $this->__get($path);
+      $data = $this->__get( $path );
 
-      if (is_array($data)) {
+      if ( is_array( $data ) ) {
 
-        $key = array_search($value, $data);
+        $key = array_search( $value, $data );
 
-        if ($key !== false) 
-          $this->__unset($path . $this->path_separator . $key);
+        if ( $key !== false ) 
+          $this->__unset( $path . $this->path_separator . $key );
       } 
 
       else {
 
-        $this->__unset($path);
+        $this->__unset( $path );
       }
     }
 
     else {
 
-      $key = array_search($value, $this->data);
+      $key = array_search( $value, $this->data );
 
-      if ($key !== false) 
-        unset($this->data[$key]);
+      if ( $key !== false ) 
+        unset( $this->data[ $key ] );
     }
 
     return $this;
@@ -336,10 +330,10 @@ class Collection implements CollectionInterface, \IteratorAggregate, \Countable 
   /**
    * {@inheritDoc}
    */
-  public function popList(array $values, $path = null)
+  public function popList( array $values, $path = null )
   {
-    foreach ($values as $value) {
-      $this->pop($value, $path);
+    foreach ( $values as $value ) {
+      $this->pop( $value, $path );
     }
 
     return $this;
@@ -348,28 +342,16 @@ class Collection implements CollectionInterface, \IteratorAggregate, \Countable 
   /**
    * {@inheritDoc}
    */
-  public function remove($path)
+  public function remove( $path )
   {
-    if (is_string($path)) {
+    if ( is_string( $path ) ) {
         
-      $this->__unset($path);
+      $this->__unset( $path );
     }
 
-    elseif (is_array($path)) {
+    elseif ( is_array( $path ) ) {
 
-      $this->removeList($path);
-    }
-
-    return $this;
-  }
-
-  /**
-   * {@inheritDoc}
-   */
-  public function removeList(array $paths)
-  {
-    foreach ($paths as $path) {
-      $this->remove($path);
+      $this->removeList( $path );
     }
 
     return $this;
@@ -378,16 +360,28 @@ class Collection implements CollectionInterface, \IteratorAggregate, \Countable 
   /**
    * {@inheritDoc}
    */
-  public function get($path)
+  public function removeList( array $paths )
   {
-    if (is_string($path)) {
-
-      return $this->__get($path);
+    foreach ( $paths as $path ) {
+      $this->remove( $path );
     }
 
-    elseif (is_array($path)) {
+    return $this;
+  }
 
-      return $this->getList($path);
+  /**
+   * {@inheritDoc}
+   */
+  public function get( $path )
+  {
+    if ( is_string( $path ) ) {
+
+      return $this->__get( $path );
+    }
+
+    elseif ( is_array( $path ) ) {
+
+      return $this->getList( $path );
     }
 
     return null;
@@ -396,37 +390,37 @@ class Collection implements CollectionInterface, \IteratorAggregate, \Countable 
   /**
    * {@inheritDoc}
    */
-  public function getList(array $paths)
+  public function getList( array $paths )
   {
     $results = [];
 
-    foreach ($paths as $path) {
+    foreach ( $paths as $path ) {
 
-      if (is_string($path)) {
+      if ( is_string( $path ) ) {
 
-        if ($this->isDottedNotationEnabled()) {
+        if ( $this->isDottedNotationEnabled() ) {
 
           $data  = &$results;
-          $paths = explode($this->path_separator, $path);
+          $paths = explode( $this->path_separator, $path );
 
-          while (count($paths) > 1) {
+          while ( count( $paths ) > 1 ) {
                   
-            $key = array_shift($paths);
+            $key = array_shift( $paths );
 
-            if (!isset($data[$key]) || !is_array($data[$key])) {
+            if ( ! isset( $data[ $key ] ) || ! is_array( $data[ $key ] ) ) {
 
-              $data[$key] = []; 
+              $data[ $key ] = []; 
             }
             
-            $data = &$data[$key];
+            $data = &$data[ $key ];
           }
 
-          $data[array_shift($paths)] = $this->__get($path);
+          $data[ array_shift( $paths ) ] = $this->__get( $path );
         }
 
         else {
 
-          $results[$path] = $this->__get($path);
+          $results[ $path ] = $this->__get( $path );
         }
       }
     }
@@ -445,33 +439,33 @@ class Collection implements CollectionInterface, \IteratorAggregate, \Countable 
   /**
    * {@inheritDoc}
    */
-  public function getKeys($path = null)
+  public function getKeys( $path = null )
   {   
-    $data = $path ? $this->__get($path) : $this->data;
+    $data = $path ? $this->__get( $path ) : $this->data;
 
-    return is_array($data) ? array_keys($data) : null;
+    return is_array( $data ) ? array_keys( $data ) : null;
   }
 
   /**
    * {@inheritDoc}
    */
-  public function hasKey($path)
+  public function hasKey( $path )
   {
-    return $this->__hasPath($path) ? true : false;
+    return $this->__hasPath( $path ) ? true : false;
   }
 
   /**
    * {@inheritDoc}
    */
-  public function hasValue($value, $path = null)
+  public function hasValue( $value, $path = null )
   {
-    if ($path) {
+    if ( $path ) {
         
-      $data = $this->__get($path);
+      $data = $this->__get( $path );
 
-      if (is_array($data)) {
+      if ( is_array( $data ) ) {
 
-        $key = array_search($value, $data);
+        $key = array_search( $value, $data );
       } 
 
       else {
@@ -482,7 +476,7 @@ class Collection implements CollectionInterface, \IteratorAggregate, \Countable 
 
     else {
 
-      $key = array_search($value, $this->data);
+      $key = array_search( $value, $this->data );
     }
 
     return $key === false ? false : true;
@@ -491,11 +485,11 @@ class Collection implements CollectionInterface, \IteratorAggregate, \Countable 
   /**
    * {@inheritDoc}
    */
-  public function count($path = null)
+  public function count( $path = null )
   {
-    $data = $path ? $this->__get($path) : $this->data;
+    $data = $path ? $this->__get( $path ) : $this->data;
 
-    return $data && is_array($data) ? count($data) : null;
+    return $data && is_array( $data ) ? count( $data ) : null;
   }
 
   /**
@@ -503,11 +497,11 @@ class Collection implements CollectionInterface, \IteratorAggregate, \Countable 
    */
   public function getIterator()
   {
-    return new \ArrayIterator($this->data);
+    return new \ArrayIterator( $this->data );
   }
 
   /**
-   * Taking control over the __set overloading magic method
+   * Taking control over the __set overloading magic method.
    * 
    * @since 1.0.0
    * @internal
@@ -516,34 +510,34 @@ class Collection implements CollectionInterface, \IteratorAggregate, \Countable 
    * @param mixed $value Value to be stored
    * @return Collection This class instance
    */
-  public function __set($path, $value)
+  public function __set( $path, $value )
   {   
-    if (is_string($path)) {
+    if ( is_string( $path ) ) {
 
-      if ($this->isDottedNotationEnabled()) {
+      if ( $this->isDottedNotationEnabled() ) {
 
         // Get current data as reference
         $data = &$this->data;
             
         // Explode keys
-        $keys = explode($this->path_separator, $path);
+        $keys = explode( $this->path_separator, $path );
 
         // Crawl though the keys
-        while (count($keys) > 1) {
+        while ( count( $keys ) > 1 ) {
 
-          $key = array_shift($keys);
+          $key = array_shift( $keys );
 
-          if (!isset($data[$key])) {
+          if ( ! isset( $data[ $key ] ) ) {
 
-            $data[$key] = [];
+            $data[ $key ] = [];
           }
           
-          $data =& $data[$key];
+          $data =& $data[ $key ];
         }
 
-        if (is_array($data)) {
+        if ( is_array( $data ) ) {
             
-          $data[array_shift($keys)] = $value;
+          $data[ array_shift( $keys ) ] = $value;
         }
 
         else {
@@ -554,20 +548,20 @@ class Collection implements CollectionInterface, \IteratorAggregate, \Countable 
 
       else {
 
-          $this->data[$path] = $value;
+          $this->data[ $path ] = $value;
       }
     }
 
-    elseif (is_numeric($path)) {
+    elseif ( is_numeric( $path ) ) {
         
-      $this->push($value);
+      $this->push( $value );
     }
 
     return $this;
   }
 
   /**
-   * Taking control over the __get overloading magic method
+   * Taking control over the __get overloading magic method.
    * 
    * @since 1.0.0
    * @internal
@@ -575,43 +569,40 @@ class Collection implements CollectionInterface, \IteratorAggregate, \Countable 
    * @param string $path Path to look for and return its value
    * @return mixed Value of the key or null
    */
-  public function __get($path)
+  public function __get( $path )
   {
-    if (!is_string($path) || !$this->__hasPath($path)) 
+    if ( ! is_string( $path ) || ! $this->__hasPath( $path ) ) 
       return null;
 
-    if ($this->isDottedNotationEnabled()) {
+    if ( $this->isDottedNotationEnabled() ) {
 
       // Get current data as reference
       $data = &$this->data;
 
       // Explode keys
-      $keys = explode($this->path_separator, $path);
+      $keys = explode( $this->path_separator, $path );
 
       // Crawl though the keys
-      while (count($keys) > 1) {
+      while ( count( $keys ) > 1 ) {
 
-        $key = array_shift($keys);
+        $key = array_shift( $keys );
 
-        if (!isset($data[$key])) {
+        if ( ! isset( $data[ $key ] ) ) {
 
           return null;
         }
         
-        $data =& $data[$key];
+        $data =& $data[ $key ];
       }
 
-      return $data[array_shift($keys)];
+      return $data[ array_shift( $keys ) ];
     }
 
-    else {
-
-      return $this->data[$path];
-    }
+    return $this->data[ $path ];
   }
 
   /**
-   * Taking control over the __unset overloading magic method
+   * Taking control over the __unset overloading magic method.
    * 
    * @since 1.0.0
    * @internal
@@ -619,38 +610,38 @@ class Collection implements CollectionInterface, \IteratorAggregate, \Countable 
    * @param string $path Path to be unset
    * @return Collection This class instance
    */
-  public function __unset($path)
+  public function __unset( $path )
   {
-    if (is_string($path)) {
+    if ( is_string( $path ) ) {
 
-      if ($this->isDottedNotationEnabled()) {
+      if ( $this->isDottedNotationEnabled() ) {
 
         // Get current data as reference
         $data = &$this->data;
 
         // Explode keys
-        $keys = explode($this->path_separator, $path);
+        $keys = explode( $this->path_separator, $path );
 
         // Crawl though the keys
-        while (count($keys) > 1) {
+        while ( count( $keys ) > 1 ) {
 
-          $key = array_shift($keys);
+          $key = array_shift( $keys );
 
-          if (!isset($data[$key])) {
+          if ( ! isset( $data[ $key ] ) ) {
 
             return $this;
           }
           
-          $data =& $data[$key];
+          $data =& $data[ $key ];
         }
 
-        unset($data[array_shift($keys)]);
+        unset( $data[ array_shift( $keys ) ] );
       }
 
       else {
 
-        if (isset($this->data[$path]))
-          unset($this->data[$path]);
+        if ( isset( $this->data[ $path ] ) )
+          unset( $this->data[ $path ] );
       }
     }
 
@@ -658,7 +649,7 @@ class Collection implements CollectionInterface, \IteratorAggregate, \Countable 
   }
 
   /**
-   * Checks if the target path exists
+   * Checks if the target path exists.
    * 
    * @since 1.0.0
    * @internal
@@ -666,37 +657,38 @@ class Collection implements CollectionInterface, \IteratorAggregate, \Countable 
    * @param string $path Target path to ve checked
    * @return boolean True if exists, false otherwise
    */
-  protected function __hasPath($path)
+  protected function __hasPath( $path )
   {   
-    if (!is_string($path)) return false;
+    if ( ! is_string( $path ) ) 
+      return false;
 
-    if ($this->isDottedNotationEnabled()) {
+    if ( $this->isDottedNotationEnabled() ) {
 
       // Get current data as reference
       $data = &$this->data;
 
       // Explode keys
-      $keys = explode($this->path_separator, $path);
+      $keys = explode( $this->path_separator, $path );
 
       // Crawl though the keys
-      while (count($keys) > 1) {
+      while ( count( $keys ) > 1 ) {
 
-        $key = array_shift($keys);
+        $key = array_shift( $keys );
 
-        if (!isset($data[$key])) {
+        if ( ! isset( $data[ $key ] ) ) {
 
           return false;
         }
         
-        $data =& $data[$key];
+        $data =& $data[ $key ];
       }
 
-      return isset($data[array_shift($keys)]) ? true : false;
+      return isset( $data[ array_shift( $keys ) ] ) ? true : false;
     }
 
     else {
 
-      return isset($this->data[$path]) ? true : false;
+      return isset( $this->data[ $path ] ) ? true : false;
     }
   }
 }

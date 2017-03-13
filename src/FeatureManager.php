@@ -1,10 +1,4 @@
 <?php
-/**
- * FeatureManager class.
- *
- * @package Bebop\Common
- * @since 1.0.0
- */
 
 namespace Ponticlaro\Bebop\Common;
 
@@ -24,14 +18,14 @@ class FeatureManager {
   use SingletonTrait;
 
   /**
-   * Features list
+   * Features list.
    * 
    * @var array
    */
   protected $features = [];
 
   /**
-   * Instantiates class
+   * Instantiates class.
    *
    * @since 1.0.0
    */
@@ -47,7 +41,7 @@ class FeatureManager {
   }
 
   /**
-   * Adds a single feature
+   * Adds a single feature.
    * 
    * @since 1.0.0
    *
@@ -62,7 +56,7 @@ class FeatureManager {
   }
 
   /**
-   * Returns feature object
+   * Returns feature object.
    * 
    * @since 1.0.0
    *
@@ -78,7 +72,7 @@ class FeatureManager {
   } 
 
   /**
-   * Checks if there is a feature with the target ID
+   * Checks if there is a feature with the target ID.
    * 
    * @since 1.0.0
    *
@@ -94,7 +88,7 @@ class FeatureManager {
   }
 
   /**
-   * Returns all features
+   * Returns all features.
    * 
    * @since 1.0.0
    *
@@ -106,7 +100,7 @@ class FeatureManager {
   } 
 
   /**
-   * Clears features
+   * Clears features.
    * 
    * @since 1.0.0
    *

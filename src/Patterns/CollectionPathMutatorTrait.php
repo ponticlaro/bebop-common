@@ -1,10 +1,4 @@
 <?php
-/**
- * CollectionRelativePathMutator trait.
- *
- * @package Bebop\Common
- * @since 1.1.5
- */
 
 namespace Ponticlaro\Bebop\Common\Patterns;
 
@@ -19,7 +13,7 @@ namespace Ponticlaro\Bebop\Common\Patterns;
 trait CollectionPathMutatorTrait {
 
   /**
-   * Used to store a single path using a key
+   * Used to store a single path using a key.
    * 
    * @since 1.1.5
    *
@@ -35,7 +29,7 @@ trait CollectionPathMutatorTrait {
   }
 
   /**
-   * Checks if the target path exists
+   * Checks if the target path exists.
    * 
    * @since 1.1.5
    *
@@ -47,7 +41,7 @@ trait CollectionPathMutatorTrait {
   }
 
   /**
-   * Returns a single path; optional suffixed relative path
+   * Returns a single path; optional suffixed relative path.
    * 
    * @since 1.1.5
    *

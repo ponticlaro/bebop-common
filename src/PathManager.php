@@ -1,10 +1,4 @@
 <?php
-/**
- * PathManager class.
- *
- * @package Bebop\Common
- * @since 1.0.0
- */
 
 namespace Ponticlaro\Bebop\Common;
 

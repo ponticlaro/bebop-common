@@ -1,10 +1,4 @@
 <?php
-/**
- * Env class.
- *
- * @package Bebop\Common
- * @since 1.0.0
- */
 
 namespace Ponticlaro\Bebop\Common;
 
@@ -40,10 +34,10 @@ class Env {
    * 
    * @since 1.0.0
    */
-  public function __construct($key)
+  public function __construct( $key )
   {
-    if (!is_string($key))
-      throw new \Exception('Ponticlaro\Bebop\Common\Env $key must be a string');
+    if ( ! is_string( $key ) )
+      throw new \Exception( 'Ponticlaro\Bebop\Common\Env $key must be a string' );
     
     // Store key
     $this->__key = $key;
@@ -69,9 +63,9 @@ class Env {
    * @param string $host Host to be added
    * @return Env This class instance
    */
-  public function addHost($host)
+  public function addHost( $host )
   {
-    if (is_string($host)) 
+    if ( is_string( $host ) ) 
       $this->__hosts[] = $host;
 
     return $this;
@@ -85,11 +79,11 @@ class Env {
    * @param string $host Hosts to be added
    * @return Env This class instance
    */
-  public function addHosts(array $hosts = array())
+  public function addHosts( array $hosts = [] )
   {
-    foreach ($hosts as $host) {
+    foreach ( $hosts as $host ) {
   
-      if (is_string($host)) 
+      if ( is_string( $host ) ) 
         $this->__hosts[] = $host;
     }
 
@@ -116,12 +110,12 @@ class Env {
    * @param string $host Host to check
    * @return boolean True if listed in this environment, false otherwise
    */
-  public function hasHost($host)
+  public function hasHost( $host )
   {
-    if (!is_string($host))
+    if ( ! is_string( $host ) )
       return false;
 
-    $key = array_search($host, $this->__hosts);
+    $key = array_search( $host, $this->__hosts );
 
     return $key === false ? false : true;
   }
@@ -136,13 +130,13 @@ class Env {
   public function isCurrent()
   {   
     // Use Hosts to determine current environment
-    if ($this->__hosts) {
+    if ( $this->__hosts ) {
         
       return $this->hasHost($_SERVER['SERVER_NAME']);
     }
 
     // Use APP_ENV to determine current environment
-    elseif (getenv('APP_ENV') && getenv('APP_ENV') == $this->__key) {
+    elseif ( getenv( 'APP_ENV' ) && getenv( 'APP_ENV' ) == $this->__key ) {
 
       return true;
     }

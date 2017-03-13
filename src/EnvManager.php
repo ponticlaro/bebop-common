@@ -1,10 +1,4 @@
 <?php
-/**
- * EnvManager class.
- *
- * @package Bebop\Common
- * @since 1.0.0
- */
 
 namespace Ponticlaro\Bebop\Common;
 
@@ -23,7 +17,7 @@ class EnvManager {
   use SingletonTrait;
 
   /**
-   * List of environments
+   * List of environments.
    * 
    * @since 1.0.0
    *
@@ -32,7 +26,7 @@ class EnvManager {
   protected $__envs = [];
 
   /**
-   * Instantiates class
+   * Instantiates class.
    * 
    * @since 1.0.0
    */
@@ -45,7 +39,7 @@ class EnvManager {
   }
 
   /**
-   * Adds a new environment with target key, if we do not have that key already
+   * Adds a new environment with target key, if we do not have that key already.
    * 
    * @since 1.0.0
    *

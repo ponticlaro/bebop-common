@@ -1,10 +1,4 @@
 <?php
-/**
- * Feature class.
- *
- * @package Bebop\Common
- * @since 1.0.0
- */
 
 namespace Ponticlaro\Bebop\Common;
 
@@ -20,7 +14,7 @@ use Ponticlaro\Bebop\Common\Collection;
 class Feature {
 
   /**
-   * Featured ID
+   * Featured ID.
    * 
    * @since 1.0.0
    *
@@ -29,7 +23,7 @@ class Feature {
   protected $id;
 
   /**
-   * Feature configuration object
+   * Feature configuration object.
    * 
    * @since 1.0.0
    *
@@ -38,7 +32,7 @@ class Feature {
   protected $config;
 
   /**
-   * Enabled status
+   * Enabled status.
    * 
    * @since 1.0.0
    *
@@ -47,7 +41,7 @@ class Feature {
   protected $enabled = false;
 
   /**
-   * Instantiates feature
+   * Instantiates feature.
    * 
    * @since 1.0.0
    *
@@ -64,7 +58,7 @@ class Feature {
   }
 
   /**
-   * Enables feature
+   * Enables feature.
    * 
    * @since 1.0.0
    *
@@ -78,7 +72,7 @@ class Feature {
   }
 
   /**
-   * Disables feature
+   * Disables feature.
    * 
    * @since 1.0.0
    *
@@ -92,7 +86,7 @@ class Feature {
   }
 
   /**
-   * Checks if feature is enabled
+   * Checks if feature is enabled.
    * 
    * @since 1.0.0
    *
@@ -104,7 +98,7 @@ class Feature {
   }
 
   /**
-   * Returns featued ID
+   * Returns featued ID.
    * 
    * @since 1.0.0
    *
@@ -116,7 +110,7 @@ class Feature {
   }
 
   /**
-   * Sets a single configuration value
+   * Sets a single configuration value.
    * 
    * @since 1.0.0
    *
@@ -133,7 +127,7 @@ class Feature {
   }
 
   /**
-   * Returns a single configuration value
+   * Returns a single configuration value.
    * 
    * @since 1.0.0
    *
@@ -146,7 +140,7 @@ class Feature {
   }
 
   /**
-   * Checks if the target configuration key exists
+   * Checks if the target configuration key exists.
    * 
    * @since 1.0.0
    *
@@ -159,7 +153,7 @@ class Feature {
   }
 
   /**
-   * Get the full configuration array
+   * Get the full configuration array.
    * 
    * @since 1.0.0
    *

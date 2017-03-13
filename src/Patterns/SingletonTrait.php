@@ -1,15 +1,9 @@
 <?php
-/**
- * Singleton trait.
- *
- * @package Bebop\Common
- * @since 1.1.5
- */
 
 namespace Ponticlaro\Bebop\Common\Patterns;
 
 /**
- * Sets or traits for a Singleton with a public __construct
+ * Set of traits for a Singleton containing a public __construct
  *
  * @package Bebop\Common
  * @since 1.1.5
@@ -18,7 +12,7 @@ namespace Ponticlaro\Bebop\Common\Patterns;
 trait SingletonTrait {
 
   /**
-   * Class instance
+   * Class instance.
    * 
    * @since 1.1.5
    *
@@ -27,7 +21,7 @@ trait SingletonTrait {
   private static $instance;
 
   /**
-   * Do not allow clones
+   * Do not allow clones.
    * 
    * @since 1.1.5
    *
@@ -36,7 +30,7 @@ trait SingletonTrait {
   private final function __clone() {}
 
   /**
-   * Gets single instance of called class
+   * Gets single instance of called class.
    * 
    * @since 1.1.5
    *

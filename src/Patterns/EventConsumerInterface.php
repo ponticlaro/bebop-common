@@ -1,10 +1,4 @@
 <?php
-/**
- * EventConsumer interface.
- *
- * @package Bebop\Common
- * @since 1.1.4
- */
 
 namespace Ponticlaro\Bebop\Common\Patterns;
 

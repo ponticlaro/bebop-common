@@ -1,10 +1,4 @@
 <?php
-/**
- * EventEmitter interface.
- *
- * @package Bebop\Common
- * @since 1.1.4
- */
 
 namespace Ponticlaro\Bebop\Common\Patterns;
 
@@ -38,7 +32,7 @@ interface EventEmitterInterface {
   public function publish( $channel, EventMessageInterface $message );
   
   /**
-   * Returns all channels and their subscribers
+   * Returns all channels and their subscribers.
    * 
    * @since 1.1.4
    * 
