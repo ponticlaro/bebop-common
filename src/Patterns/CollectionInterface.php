@@ -12,15 +12,6 @@ namespace Ponticlaro\Bebop\Common\Patterns;
 interface CollectionInterface { 
 
   /**
-   * Initialize Collection with optionally passed array containing initial data.
-   * 
-   * @since 1.0.0
-   * 
-   * @param array $data Optional initial data to be added
-   */
-  public function __construct( array $data = [] );
-
-  /**
    * Enables dotted notation to access multidimensional arrays.
    * 
    * @since 1.0.0
