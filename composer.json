@@ -14,8 +14,6 @@
         "role": "Developer"
     }],
     "require": {
-        "erusev/parsedown": "^1",
-        "erusev/parsedown-extra": "^0"
     },
     "require-dev": {
         "codeception/codeception": "^2",
@@ -25,9 +23,6 @@
         "apigen/apigen": "^4",
         "codeclimate/php-test-reporter": "^0",
         "codacy/coverage": "^1"
-    },
-    "suggest": {
-        "michelf/php-smartypants": "Allows Markdown parsing"
     },
     "autoload": {
         "psr-4": {
